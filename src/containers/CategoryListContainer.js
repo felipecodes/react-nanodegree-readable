@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CategoryList from './CategoryList'
-import { fetchCategories } from '../actions'
+import { fetchCategories, fetchPosts } from '../actions'
 
 class CategoryListContainer extends Component {
   componentWillMount() {
@@ -16,7 +16,8 @@ class CategoryListContainer extends Component {
 const mapStateToProps = ({ categories }) => ({ categories })
 
 const mapDispatchToProps = dispatch => ({
-  fetchCategories: () => dispatch(fetchCategories())
+  fetchCategories: () => dispatch(fetchCategories()),
+  fetchPosts: ({ name }) => dispatch(fetchPosts(name))
 })
 
 export default connect(

@@ -1,8 +1,9 @@
-import { RECEIVE_POSTS } from '../actions'
+import { RECEIVE_POSTS, RECEIVE_POSTS_FROM_CATEGORY } from '../actions'
 
 const initialState = {
   byId: {},
-  allIds: []
+  allIds: [],
+  byCategory: {}
 }
 
 const posts = (state = initialState, action) => {
@@ -19,6 +20,25 @@ const posts = (state = initialState, action) => {
         ]
       }
       return
+    case RECEIVE_POSTS_FROM_CATEGORY:
+      return {
+        byId: {
+          ...state.byId,
+          ...action.entities.posts
+        },
+        allIds: [
+          ...state.allIds,
+          ...action.result.posts
+        ],
+        byCategory: {
+          ...state.byCategory,
+          [action.category]: [
+            ...state.byCategory[action.category],
+            ...action.result.posts
+          ]
+        }
+      }
+      break
     default:
       return state
   }
