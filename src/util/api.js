@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { normalize } from 'normalizr'
+
 require('promise.prototype.finally').shim()
 
 /**

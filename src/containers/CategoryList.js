@@ -1,38 +1,15 @@
-import React from 'react'
+import { connect } from 'react-redux'
+import CategoryList from '../components/CategoryList'
+import { fetchCategories } from '../actions'
 
-const Category = ({
-  category,
-  onClick
-}) => (
-  <li onClick={onClick}>
-    {category.name}
-  </li>
-)
+const mapStateToProps = ({ categories }) => ({ categories })
 
-const Categories  = ({
-  categories,
-  fetchPosts
-}) => (
-  !!categories.length && (
-    <ul>
-      {categories.map(category => (
-        <Category
-          key={category.name}
-          category={category}
-          onClick={() => fetchPosts(category)}
-        />
-      ))}
-    </ul>
-  )
-)
+const mapDispatchToProps = dispatch => ({
+  fetchCategories: () => dispatch(fetchCategories())
+})
 
-const CategoryList = props => {
-  return (
-    <div>
-      <h1>CategoryList</h1>
-      <Categories {...props} />
-    </div>
-  )
-}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CategoryList)
 
-export default CategoryList
