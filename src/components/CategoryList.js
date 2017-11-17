@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const Categories  = ({
-  categories,
-  fetchPosts
-}) => (
+const Categories  = ({ categories }) => (
   !!categories.length && (
     <ul>
       {categories.map(category => (

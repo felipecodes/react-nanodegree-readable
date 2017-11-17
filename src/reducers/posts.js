@@ -1,5 +1,5 @@
 import { union } from 'lodash'
-import { RECEIVE_POSTS } from '../actions'
+import { FETCH_POSTS, DONE_POSTS, RECEIVE_POSTS } from '../actions'
 
 const initialState = {
   byId: {},
@@ -10,6 +10,7 @@ const posts = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_POSTS:
       return {
+        ...state,
         byId: {
           ...state.byId,
           ...action.entities.posts
@@ -19,6 +20,19 @@ const posts = (state = initialState, action) => {
           action.result.posts
         )
       }
+
+    case FETCH_POSTS:
+      return {
+        ...state,
+        isFething: true
+      }
+
+    case DONE_POSTS:
+      return {
+        ...state,
+        isFething: false
+      }
+
     default:
       return state
   }

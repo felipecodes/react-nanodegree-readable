@@ -1,10 +1,31 @@
 import { unionBy } from 'lodash'
-import { RECEIVE_CATEGORIES } from '../actions'
+import { FETCH_CATEGORIES, DONE_CATEGORIES, RECEIVE_CATEGORIES } from '../actions'
 
-const categories = (state = [], action) => {
+const initialState = {
+  categories: [],
+  isFething: false
+}
+
+const categories = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CATEGORIES:
-      return unionBy(state, action.categories, 'path')
+      return {
+        categories: unionBy(state.categories, action.categories, 'path'),
+        isFething: state.isFething
+      }
+
+    case FETCH_CATEGORIES:
+      return {
+        ...state,
+        isFething: true
+      }
+
+    case DONE_CATEGORIES:
+      return {
+        ...state,
+        isFething: false
+      }
+
     default:
       return state
   }
