@@ -3,7 +3,7 @@ import CategoryList from '../components/CategoryList'
 import { fetchCategories } from '../actions'
 
 const mapStateToProps = ({ categories }) => ({
-  categories: categories.categories
+  categories: categories
 })
 
 const mapDispatchToProps = dispatch => ({

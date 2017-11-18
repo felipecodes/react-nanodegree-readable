@@ -6,15 +6,11 @@ require('promise.prototype.finally').shim()
  * Helper to make request
  */
 
-const req = (method, url, data = {}, headers = {}, params = {}) => (
+const req = opts => (
   axios({
+    ...opts,
     baseURL: process.env.REACT_APP_PROXY || '',
-    withCredentials: false,
-    method,
-    url,
-    data,
-    headers,
-    params,
+    withCredentials: false
   })
 )
 
@@ -22,8 +18,13 @@ const req = (method, url, data = {}, headers = {}, params = {}) => (
  * Get all the posts from a category
  */
 
-export const getPosts = category => (
-  req('GET', category ? `/${category}/posts` : '/posts', null, { Authorization: 'bearer token' })
+export const getPosts = (category, onDownloadProgress = null) => (
+  req({
+    method: 'GET',
+    url: category ? `/${category}/posts` : '/posts',
+    headers: { Authorization: 'bearer token' },
+    onDownloadProgress
+  })
 )
 
 
@@ -31,4 +32,11 @@ export const getPosts = category => (
  * Get all the categories
  */
 
-export const getCategories = () => req('GET', '/categories', null, { Authorization: 'bearer token' })
+export const getCategories = onDownloadProgress => (
+  req({
+    method: 'GET',
+    url: '/categories',
+    headers: { Authorization: 'bearer token' },
+    onDownloadProgress
+  })
+)
