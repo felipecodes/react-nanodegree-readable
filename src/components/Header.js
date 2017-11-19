@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Wrapper = styled.header`
   padding: 1em 2em;
-  background-color: #0cd0b5;
+  background-color: #333;
   color: #fff;
 `
 
