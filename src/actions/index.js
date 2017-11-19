@@ -2,17 +2,13 @@ import { normalize } from 'normalizr'
 import * as api from '../util/api'
 import { postSchema } from '../util/schema'
 
-export const FETCH_POSTS = 'FETCH_POSTS'
-export const DONE_POSTS = 'DONE_POSTS'
-export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
-export const DONE_CATEGORIES = 'DONE_CATEGORIES'
+export const FETCH = 'FETCH'
+export const DONE = 'DONE'
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 
-const isFetchingPosts = () => ({ type: FETCH_POSTS })
-const isDonePosts = () => ({ type: DONE_POSTS })
-const isFetchingCategories = () => ({ type: FETCH_CATEGORIES })
-const isDoneCategories = () => ({ type: DONE_CATEGORIES })
+const isFetch = () => ({ type: FETCH })
+const isDone = () => ({ type: DONE })
 
 const receiveCategories = ({ categories }) => ({
   type: RECEIVE_CATEGORIES,
@@ -25,18 +21,8 @@ const receivePosts = ({ entities, result }) => ({
   result
 })
 
-export const fetchCategories = () => dispatch => {
-  dispatch(isFetchingCategories())
-
-  api
-    .getCategories()
-    .then(response => dispatch(receiveCategories(response.data)))
-    // .catch(err => dispatch(NOTIFICATION, err.message))
-    .finally(() => dispatch(isDoneCategories()))
-}
-
 export const fetchPosts = category => dispatch => {
-  dispatch(isFetchingPosts())
+  dispatch(isFetch())
 
   api
     .getPosts(category)
@@ -47,5 +33,32 @@ export const fetchPosts = category => dispatch => {
       // dispatch(postsNotFound(category))
     })
     // .catch(err => dispatch(NOTIFICATION, err.message))
-    .finally(() => dispatch(isDonePosts()))
+    .finally(() => dispatch(isDone()))
+}
+
+export const fetchCategoriesAndPosts = category => dispatch => {
+  dispatch(isFetch())
+
+  Promise.all([
+    api.getCategories(),
+    api.getPosts(category)
+  ])
+    .then(([categoriesResponse, postsResponse]) => {
+      const categories = categoriesResponse.data
+      const posts = postsResponse.data
+
+      if (categories) {
+        dispatch(receiveCategories(categories))
+      }
+
+      if (posts) {
+        dispatch(receivePosts(normalize({ posts }, postSchema)))
+      }
+    })
+
+    // TODO:
+    //  - Qual requisição deu erro?
+    //  - Qual a porcentagem de carregamento?
+    // .catch(err => dispatch(NOTIFICATION, err.message))
+    .finally(() => dispatch(isDone()))
 }

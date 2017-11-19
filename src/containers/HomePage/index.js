@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPosts, fetchCategories } from '../../actions';
+import { fetchCategoriesAndPosts, fetchPosts } from '../../actions';
 import View from './View'
 
 class HomePage extends Component {
   componentWillMount() {
-    this.props.fetchPosts(this.props.match.params.category)
-    this.props.fetchCategories()
+    this.props.dataFetch(this.props.match.params.category)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,19 +20,19 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state, { match }) => {
-  const { posts: { byId, allIds }, categories } = state
+  const { posts: { byId, allIds }, categories, fetch } = state
   const ids = match.params.category ?
     allIds.filter(id => byId[id].category === match.params.category) : allIds
 
   return {
     posts: ids.map(id => byId[id]),
-    categories
+    categories,
+    fetch
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchPosts: category => dispatch(fetchPosts(category)),
-  fetchCategories: () => dispatch(fetchCategories())
+  dataFetch: category => dispatch(fetchCategoriesAndPosts(category))
 })
 
 export default connect(
