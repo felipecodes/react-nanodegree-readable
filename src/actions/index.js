@@ -6,6 +6,8 @@ export const FETCH = 'FETCH'
 export const DONE = 'DONE'
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const RECEIVE_POST = 'RECEIVE_POST'
+export const ADD_TOAST = 'ADD_TOAST'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
@@ -21,6 +23,31 @@ const receivePosts = ({ entities, result }) => ({
   result
 })
 
+const receivePost = post => ({
+  type: RECEIVE_POST,
+  post
+})
+
+const addToast = message => ({
+  type: ADD_TOAST,
+  message
+})
+
+export const fetchPost = id => dispatch => {
+  dispatch(isFetch())
+
+  api
+    .getPost(id)
+    .then(response => {
+      if (response && response.data) {
+        return dispatch(receivePost(response.data))
+      }
+      // addToast(postNotFound())
+    })
+    .catch(err => dispatch(addToast(err.message)))
+    .finally(isDone())
+}
+
 export const fetchPosts = category => dispatch => {
   dispatch(isFetch())
 
@@ -32,7 +59,7 @@ export const fetchPosts = category => dispatch => {
       }
       // dispatch(postsNotFound(category))
     })
-    // .catch(err => dispatch(NOTIFICATION, err.message))
+    // .catch(err => dispatch(addToast(err.message)))
     .finally(() => dispatch(isDone()))
 }
 
@@ -58,6 +85,6 @@ export const fetchCategoriesAndPosts = category => dispatch => {
     // TODO:
     //  - Qual requisição deu erro?
     //  - Qual a porcentagem de carregamento?
-    // .catch(err => dispatch(NOTIFICATION, err.message))
+    // .catch(err => dispatch(addToast(err.message)))
     .finally(() => dispatch(isDone()))
 }

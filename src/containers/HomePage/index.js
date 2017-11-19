@@ -32,7 +32,8 @@ const mapStateToProps = (state, { match }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  dataFetch: category => dispatch(fetchCategoriesAndPosts(category))
+  dataFetch: category => dispatch(fetchCategoriesAndPosts(category)),
+  fetchPosts: category => dispatch(fetchPosts(category))
 })
 
 export default connect(

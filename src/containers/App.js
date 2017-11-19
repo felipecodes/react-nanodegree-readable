@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { MuiThemeProvider } from 'material-ui'
 import Header from '../components/Header'
 import HomePage from './HomePage'
+import PostDetails from './PostDetails'
 
 const App = ({ store }) => (
   <Provider store={store}>
@@ -13,6 +14,7 @@ const App = ({ store }) => (
         <Header />
         <Route exact path={'/'} component={HomePage} />
         <Route exact path={'/:category'} component={HomePage} />
+        <Route exact path={'/posts/:id'} component={PostDetails} />
       </div>
     </MuiThemeProvider>
   </Provider>

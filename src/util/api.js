@@ -14,6 +14,14 @@ const req = opts => (
   })
 )
 
+export const getPost = id => (
+  req({
+    method: 'GET',
+    url: `/posts/${id}`,
+    headers: { Authorization: 'bearer token' }
+  })
+)
+
 /**
  * Get all the posts from a category
  */
