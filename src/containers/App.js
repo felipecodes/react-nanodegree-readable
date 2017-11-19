@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { MuiThemeProvider } from 'material-ui'
 import Header from '../components/Header'
-import Progress from '../components/Progress'
+import Progress from './Progress'
 import HomePage from './HomePage'
 
 const App = ({ store }) => (
