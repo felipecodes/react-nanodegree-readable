@@ -2,17 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import Wrap from '../components/Wrap'
+import { MuiThemeProvider } from 'material-ui'
 import Header from '../components/Header'
+import Progress from '../components/Progress'
 import HomePage from './HomePage'
 
 const App = ({ store }) => (
   <Provider store={store}>
-    <Wrap>
-      <Header />
-      <Route exact path={'/'} component={HomePage} />
-      <Route exact path={'/:category'} component={HomePage} />
-    </Wrap>
+    <MuiThemeProvider>
+      <div>
+        <Progress />
+        <Header />
+        <Route exact path={'/'} component={HomePage} />
+        <Route exact path={'/:category'} component={HomePage} />
+      </div>
+    </MuiThemeProvider>
   </Provider>
 )
 
