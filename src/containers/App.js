@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { MuiThemeProvider } from 'material-ui'
 import Header from '../components/Header'
 import Progress from './Progress'
-import HomePage from './HomePage/'
+import HomePage from './HomePage'
 
 const App = ({ store }) => (
   <Provider store={store}>
@@ -21,7 +21,7 @@ const App = ({ store }) => (
 )
 
 App.propTypes = {
-  store: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 }
 
 export default App
