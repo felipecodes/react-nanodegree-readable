@@ -55,7 +55,6 @@ export const fetchCategoriesAndPosts = category => dispatch => {
         dispatch(receivePosts(normalize({ posts }, postSchema)))
       }
     })
-
     // TODO:
     //  - Qual requisição deu erro?
     //  - Qual a porcentagem de carregamento?
