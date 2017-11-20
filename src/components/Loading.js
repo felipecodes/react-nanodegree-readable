@@ -11,7 +11,9 @@ const Wrapper = styled.div`
 
 const Loading = () => (
   <Wrapper>
-    <LinearProgress />
+    <LinearProgress style={{
+      backgroundColor: '#454545'
+    }} />
   </Wrapper>
 )
 
