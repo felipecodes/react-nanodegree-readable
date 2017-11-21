@@ -1,18 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Wrapper, List, Item } from './Styles'
+import { List, ListItem } from 'material-ui'
+import Wrap from '../Wrap'
+import BoxTitle from '../common/BoxTitle'
+import { Wrapper, CustomLink } from './Styles'
 
 const PostList = props => (
-  <div>
-    <h1>PostList</h1>
-    <ul>
+  <Wrapper>
+    <List>
       {props.posts.map(post => (
-        <li key={post.id}>
-          <Link to={`/posts/${post.id}`}>{post.title}</Link>
-        </li>
+        <ListItem innerDivStyle={{padding: 0}} key={post.id}>
+          <CustomLink to={`/posts/${post.id}`}>{post.title}</CustomLink>
+        </ListItem>
       ))}
-    </ul>
-  </div>
+    </List>
+  </Wrapper>
 )
 
 export default PostList
