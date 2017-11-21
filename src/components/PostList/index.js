@@ -1,8 +1,6 @@
 import React from 'react'
 import ThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import ThumbUp from 'material-ui/svg-icons/action/thumb-up'
-import Wrap from '../Wrap'
-import BoxTitle from '../common/BoxTitle'
 import { Wrapper, List, Item, Score, IconWrapper, CustomLink } from './Styles'
 
 const PostList = props => (
@@ -18,7 +16,7 @@ const PostList = props => (
         >
           <CustomLink to={`/posts/${post.id}`}>{post.title}</CustomLink>
           <Score>{post.voteScore}</Score>
-          <IconWrapper onClick={props.vote}>
+          <IconWrapper onClick={() => props.voteUp(post)}>
             <ThumbUp
               style={{
                 width: '16px',
@@ -26,7 +24,7 @@ const PostList = props => (
               }}
             />
           </IconWrapper>
-          <IconWrapper onClick={props.vote}>
+          <IconWrapper onClick={() => props.voteDown(post)}>
             <ThumbDown
               style={{
                 width: '16px',

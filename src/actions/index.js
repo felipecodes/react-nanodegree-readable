@@ -8,9 +8,21 @@ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const ADD_TOAST = 'ADD_TOAST'
+export const VOTE_UP = 'VOTE_UP'
+export const VOTE_DOWN = 'VOTE_DOWN'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
+
+export const voteUp = ({ id }) => ({
+  type: VOTE_UP,
+  id
+})
+
+export const voteDown = ({ id }) => ({
+  type: VOTE_DOWN,
+  id
+})
 
 const receiveCategories = ({ categories }) => ({
   type: RECEIVE_CATEGORIES,

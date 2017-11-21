@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategoriesAndPosts, fetchPosts } from '../../actions';
+import { fetchCategoriesAndPosts, fetchPosts, voteUp, voteDown } from '../../actions';
 import View from './View'
 
 class HomePage extends Component {
@@ -33,7 +33,9 @@ const mapStateToProps = (state, { match }) => {
 
 const mapDispatchToProps = dispatch => ({
   dataFetch: category => dispatch(fetchCategoriesAndPosts(category)),
-  fetchPosts: category => dispatch(fetchPosts(category))
+  fetchPosts: category => dispatch(fetchPosts(category)),
+  voteUp: post => dispatch(voteUp(post)),
+  voteDown: post => dispatch(voteDown(post))
 })
 
 export default connect(

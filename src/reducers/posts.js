@@ -1,5 +1,5 @@
 import { union } from 'lodash'
-import { RECEIVE_POSTS } from '../actions'
+import { RECEIVE_POSTS, VOTE_UP, VOTE_DOWN } from '../actions'
 
 const initialState = {
   byId: {},
@@ -19,6 +19,30 @@ const posts = (state = initialState, action) => {
           state.allIds,
           action.allIds
         )
+      }
+
+    case VOTE_UP:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.id]: {
+            ...state.byId[action.id],
+            voteScore: ++state.byId[action.id].voteScore
+          }
+        }
+      }
+
+    case VOTE_DOWN:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.id]: {
+            ...state.byId[action.id],
+            voteScore: --state.byId[action.id].voteScore
+          }
+        }
       }
 
     default:
