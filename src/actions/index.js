@@ -17,10 +17,10 @@ const receiveCategories = ({ categories }) => ({
   categories
 })
 
-const receivePosts = ({ entities, result }) => ({
+const receivePosts = ({ entities, allIds }) => ({
   type: RECEIVE_POSTS,
   entities,
-  result
+  allIds
 })
 
 const receivePost = post => ({
@@ -33,6 +33,25 @@ const addToast = message => ({
   message
 })
 
+const sortByVoteScore = ({ entities, result }) => {
+  const allIds = result.posts.sort((a, b ) => {
+    if (a.voteScore > b.voteScore) {
+      return 1
+    }
+
+    if (b.voteScore > a.voteScore) {
+      return -1
+    }
+
+    return 0
+  })
+
+  return {
+    entities,
+    allIds
+  }
+}
+
 export const fetchPost = id => dispatch => {
   dispatch(isFetch())
 
@@ -42,7 +61,7 @@ export const fetchPost = id => dispatch => {
       if (response && response.data) {
         return dispatch(receivePost(response.data))
       }
-      // addToast(postNotFound())
+      // dispatch(addToast(postNotFound()))
     })
     .catch(err => dispatch(addToast(err.message)))
     .finally(isDone())
@@ -55,7 +74,9 @@ export const fetchPosts = category => dispatch => {
     .getPosts(category)
     .then(response => {
       if (response.data && response.data.length > 0) {
-        return dispatch(receivePosts(normalize({ posts: response.data }, postSchema)))
+        return dispatch(receivePosts(
+          sortByVoteScore(normalize({ posts: response.data }, postSchema))
+        ))
       }
       // dispatch(postsNotFound(category))
     })
@@ -79,7 +100,9 @@ export const fetchCategoriesAndPosts = category => dispatch => {
       }
 
       if (posts) {
-        dispatch(receivePosts(normalize({ posts }, postSchema)))
+        dispatch(receivePosts(
+          sortByVoteScore(normalize({ posts }, postSchema))
+        ))
       }
     })
     // TODO:

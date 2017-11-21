@@ -17,7 +17,7 @@ const posts = (state = initialState, action) => {
         },
         allIds: union(
           state.allIds,
-          action.result.posts
+          action.allIds
         )
       }
 
