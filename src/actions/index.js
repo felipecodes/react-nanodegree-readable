@@ -10,19 +10,52 @@ export const RECEIVE_POST = 'RECEIVE_POST'
 export const ADD_TOAST = 'ADD_TOAST'
 export const VOTE_UP = 'VOTE_UP'
 export const VOTE_DOWN = 'VOTE_DOWN'
+export const RECEIVE_VOTE_SCORE = 'RECEIVE_VOTE_SCORE'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
 
-export const voteUp = ({ id }) => ({
-  type: VOTE_UP,
-  id
+const receiveVoteScore = ({ id, voteScore }) => ({
+  type: RECEIVE_VOTE_SCORE,
+  voteScore,
+  id,
 })
 
-export const voteDown = ({ id }) => ({
-  type: VOTE_DOWN,
-  id
-})
+export const voteUp = ({ id }) => (dispatch, getState) => {
+  const { posts: { byId } } = getState()
+  const { voteScore } = byId[id]
+
+  dispatch(isFetch())
+  dispatch({ type: VOTE_UP, id })
+
+  api.voteUp(id)
+    .then(response => {
+      const post = response.data
+      if (post.voteScore < voteScore || post.voteScore > voteScore + 1) {
+        dispatch((receiveVoteScore(post)))
+      }
+    })
+    // .catch(error => addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
+
+export const voteDown = ({ id }) => (dispatch, getState) => {
+  const { posts: { byId } } = getState()
+  const { voteScore } = byId[id]
+
+  dispatch(isFetch())
+  dispatch({ type: VOTE_DOWN, id })
+
+  api.voteDown(id)
+    .then(response => {
+      const post = response.data
+      if (post.voteScore < voteScore - 1 || post.voteScore >= voteScore) {
+        dispatch((receiveVoteScore(post)))
+      }
+    })
+    // .catch(error => addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
 
 const receiveCategories = ({ categories }) => ({
   type: RECEIVE_CATEGORIES,
