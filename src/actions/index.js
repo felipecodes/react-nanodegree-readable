@@ -79,13 +79,16 @@ const addToast = message => ({
 })
 
 const sortByVoteScore = ({ entities, result }) => {
-  const allIds = result.posts.sort((a, b ) => {
-    if (a.voteScore > b.voteScore) {
-      return 1
+  const allIds = result.posts.sort((a, b) => {
+    const current = entities.posts[a]
+    const next = entities.posts[b]
+
+    if (current.voteScore > next.voteScore) {
+      return -1
     }
 
-    if (b.voteScore > a.voteScore) {
-      return -1
+    if (next.voteScore > current.voteScore) {
+      return 1
     }
 
     return 0
