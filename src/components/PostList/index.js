@@ -1,10 +1,11 @@
 import React from 'react'
 import ThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import ThumbUp from 'material-ui/svg-icons/action/thumb-up'
-import { Wrapper, List, Item, Score, IconWrapper, CustomLink } from './Styles'
+import Box from '../common/Box'
+import { List, Item, Score, IconWrapper, CustomLink } from './Styles'
 
 const PostList = props => (
-  <Wrapper>
+  <Box>
     <List>
       {props.posts.map(post => (
         <Item
@@ -35,7 +36,7 @@ const PostList = props => (
         </Item>
       ))}
     </List>
-  </Wrapper>
+  </Box>
 )
 
 export default PostList

@@ -1,9 +1,10 @@
 import React from 'react'
 import { List, ListItem } from 'material-ui'
-import { Wrapper, CustomLink } from './Styles'
+import Box from '../common/Box'
+import { CustomLink } from './Styles'
 
 const CategoryList = props => (
-  <Wrapper>
+  <Box>
     {!!props.categories.length && (
       <List>
         {props.categories.map(category => (
@@ -16,7 +17,7 @@ const CategoryList = props => (
         ))}
       </List>
     )}
-  </Wrapper>
+  </Box>
 )
 
 export default CategoryList

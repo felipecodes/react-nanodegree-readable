@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const Wrapper = styled.div`
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
-`
-
 const List = styled.ul`
   margin-top: 0;
   margin-bottom: 0;
@@ -45,4 +41,4 @@ const Score = styled.div`
   color: #555;
 `
 
-export { Wrapper, List, Item, Score, IconWrapper, CustomLink }
+export { List, Item, Score, IconWrapper, CustomLink }

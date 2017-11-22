@@ -1,6 +1,7 @@
 import { normalize } from 'normalizr'
 import * as api from '../util/api'
 import { postSchema } from '../util/schema'
+import * as postUtils from '../util/postUtils'
 
 export const FETCH = 'FETCH'
 export const DONE = 'DONE'
@@ -11,6 +12,8 @@ export const ADD_TOAST = 'ADD_TOAST'
 export const VOTE_UP = 'VOTE_UP'
 export const VOTE_DOWN = 'VOTE_DOWN'
 export const RECEIVE_VOTE_SCORE = 'RECEIVE_VOTE_SCORE'
+export const SORT_BY_VOTE_SCORE = 'SORT_BY_VOTE_SCORE'
+export const SORT_BY_DATE = 'SORT_BY_DATE'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
@@ -19,6 +22,14 @@ const receiveVoteScore = ({ id, voteScore }) => ({
   type: RECEIVE_VOTE_SCORE,
   voteScore,
   id,
+})
+
+export const sortByVoteScore = () => ({
+  type: SORT_BY_VOTE_SCORE
+})
+
+export const sortByDate = () => ({
+  type: SORT_BY_DATE
 })
 
 export const voteUp = ({ id }) => (dispatch, getState) => {
@@ -62,9 +73,9 @@ const receiveCategories = ({ categories }) => ({
   categories
 })
 
-const receivePosts = ({ entities, allIds }) => ({
+const receivePosts = ({ byId, allIds }) => ({
   type: RECEIVE_POSTS,
-  entities,
+  byId,
   allIds
 })
 
@@ -77,28 +88,6 @@ const addToast = message => ({
   type: ADD_TOAST,
   message
 })
-
-const sortByVoteScore = ({ entities, result }) => {
-  const allIds = result.posts.sort((a, b) => {
-    const current = entities.posts[a]
-    const next = entities.posts[b]
-
-    if (current.voteScore > next.voteScore) {
-      return -1
-    }
-
-    if (next.voteScore > current.voteScore) {
-      return 1
-    }
-
-    return 0
-  })
-
-  return {
-    entities,
-    allIds
-  }
-}
 
 export const fetchPost = id => dispatch => {
   dispatch(isFetch())
@@ -122,9 +111,15 @@ export const fetchPosts = category => dispatch => {
     .getPosts(category)
     .then(response => {
       if (response.data && response.data.length > 0) {
-        return dispatch(receivePosts(
-          sortByVoteScore(normalize({ posts: response.data }, postSchema))
-        ))
+        const {
+          entities: { posts: byId },
+          result: { posts: allIds }
+        } = normalize({ posts: response.data }, postSchema)
+
+        dispatch(receivePosts({
+          allIds: postUtils.sortByVoteScore({ byId, allIds }),
+          byId
+        }))
       }
       // dispatch(postsNotFound(category))
     })
@@ -148,9 +143,15 @@ export const fetchCategoriesAndPosts = category => dispatch => {
       }
 
       if (posts) {
-        dispatch(receivePosts(
-          sortByVoteScore(normalize({ posts }, postSchema))
-        ))
+        const {
+          entities: { posts: byId },
+          result: { posts: allIds }
+        } = normalize({ posts }, postSchema)
+
+        dispatch(receivePosts({
+          allIds: postUtils.sortByVoteScore({ byId, allIds }),
+          byId
+        }))
       }
     })
     // TODO:
