@@ -100,8 +100,8 @@ export const fetchPost = id => dispatch => {
       }
       // dispatch(addToast(postNotFound()))
     })
-    .catch(err => dispatch(addToast(err.message)))
-    .finally(isDone())
+    // .catch(err => dispatch(addToast(err.message)))
+    .finally(() => dispatch(isDone()))
 }
 
 export const fetchPosts = category => dispatch => {
