@@ -3,13 +3,13 @@ import React from 'react'
 const Controls = props => (
   <div>
     <button
-      onClick={() => props.editPost(props.post)}
+      onClick={() => props.editComment(props.comment)}
     >
       Edit
     </button>
 
     <button
-      onClick={() => props.removePost(props.post)}
+      onClick={() => props.removeComment(props.comment)}
     >
       Remove
     </button>

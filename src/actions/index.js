@@ -17,6 +17,8 @@ export const SORT_BY_VOTE_SCORE = 'SORT_BY_VOTE_SCORE'
 export const SORT_BY_DATE = 'SORT_BY_DATE'
 export const REMOVE_POST = 'REMOVE_POST'
 export const EDIT_POST = 'EDIT_POST'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
@@ -55,24 +57,25 @@ export const editPost = id => ({
   id
 })
 
+export const editComment = id => ({
+  type: EDIT_COMMENT,
+  id
+})
+
 const removePost = id => ({
   type: REMOVE_POST,
   id
 })
 
-export const removePostAsync = id => dispatch => {
-  dispatch(isFetch())
-  dispatch(removePost(id))
+const removeComment = id => ({
+  type: REMOVE_COMMENT,
+  id
+})
 
-  api.removePost(id)
-    // .catch(error => dispatch(addToast(error.message)))
-    .finally(() => isDone())
-}
-
-// const addToast = message => ({
-//   type: ADD_TOAST,
-//   message
-// })
+const addToast = message => ({
+  type: ADD_TOAST,
+  message
+})
 
 export const sortByVoteScore = () => ({
   type: SORT_BY_VOTE_SCORE
@@ -81,6 +84,23 @@ export const sortByVoteScore = () => ({
 export const sortByDate = () => ({
   type: SORT_BY_DATE
 })
+
+export const removePostAsync = id => dispatch => {
+  dispatch(isFetch())
+  dispatch(removePost(id))
+
+  api.removePost(id)
+    // .catch(error => dispatch(addToast(error.message)))
+    .finally(() => dispatch(isDone()))
+}
+
+export const removeCommentAsync = id => dispatch => {
+  dispatch(isFetch())
+  dispatch(removeComment(id))
+
+  api.removeComment(id)
+    .finally(() => dispatch(isDone()))
+}
 
 export const voteUp = ({ id }) => (dispatch, getState) => {
   const { posts: { byId } } = getState()

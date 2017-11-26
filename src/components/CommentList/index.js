@@ -1,6 +1,7 @@
 import React from 'react'
 import Text from '../common/Text'
 import { Box, StyledTitle, List, Item, VoteScore } from './Styles'
+import Controls from './Controls'
 
 const CommentList = props => (
   <Box>
@@ -13,6 +14,7 @@ const CommentList = props => (
             <Text>{comment.body}</Text>
             <Text inline>{comment.author}</Text>
             <VoteScore inline>{comment.voteScore}</VoteScore>
+            <Controls {...props} comment={comment} />
           </Item>
         )}
       </List>

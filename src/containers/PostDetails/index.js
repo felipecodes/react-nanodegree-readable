@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removePostAsync, editPost, fetchPostAndComments } from '../../actions'
+import {
+  removePostAsync,
+  editPost,
+  removeCommentAsync,
+  editComment,
+  fetchPostAndComments
+} from '../../actions'
 import View from './View'
 
 class PostDetails extends Component {
@@ -23,8 +29,10 @@ const mapStateToProps = ({ posts, comments, fetch }, { match }) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPostAndComments: id => dispatch(fetchPostAndComments(id)),
-  remove: ({ id }) => dispatch(removePostAsync(id)),
-  edit: ({ id }) => dispatch(editPost(id))
+  removePost: ({ id }) => dispatch(removePostAsync(id)),
+  editPost: ({ id }) => dispatch(editPost(id)),
+  removeComment: ({ id }) => dispatch(removeCommentAsync(id)),
+  editComment: ({ id }) => dispatch(editComment(id))
 })
 
 export default connect(

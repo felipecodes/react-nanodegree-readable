@@ -10,7 +10,7 @@ const req = opts => (
   axios({
     ...opts,
     baseURL: process.env.REACT_APP_PROXY || '',
-    headers: { Authorization: 'bearer token' },
+    headers: { Authorization: 'bearer token123' },
     withCredentials: false
   })
 )
@@ -24,9 +24,15 @@ export const getPost = id => (
 
 export const removePost = id => (
   req({
-    method: 'PUT',
-    url: `/posts/${id}`,
-    data: { id, deleted: true }
+    method: 'DELETE',
+    url: `/posts/${id}`
+  })
+)
+
+export const removeComment = id => (
+  req({
+    method: 'DELETE',
+    url: `/comments/${id}`
   })
 )
 
@@ -75,5 +81,13 @@ export const getComments = id => (
   req({
     method: 'GET',
     url: `/posts/${id}/comments`
+  })
+)
+
+export const addComment = comment => (
+  req({
+    method: 'POST',
+    url: `/comments`,
+    data: comment
   })
 )
