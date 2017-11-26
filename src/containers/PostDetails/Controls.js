@@ -1,18 +1,30 @@
 import React from 'react'
+import { RaisedButton } from 'material-ui'
+
+const buttonStyle = {
+  height: '30px',
+  lineHeight: '30px',
+  fontSize: '14px',
+  color: '#fff'
+}
 
 const Controls = props => (
   <div>
-    <button
+    <RaisedButton
+      buttonStyle={buttonStyle}
+      primary
       onClick={() => props.editPost(props.post)}
     >
       Edit
-    </button>
+    </RaisedButton>
 
-    <button
+    <RaisedButton
+      buttonStyle={buttonStyle}
+      secondary
       onClick={() => props.removePost(props.post)}
     >
       Remove
-    </button>
+    </RaisedButton>
   </div>
 )
 

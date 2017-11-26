@@ -1,4 +1,5 @@
 import React from 'react'
+import { Divider } from 'material-ui'
 import Text from '../../components/common/Text'
 import CommentList from '../../components/CommentList'
 import CommentForm from '../../components/CommentForm'
@@ -11,14 +12,18 @@ const View = props => (
       <StyledTitle>{props.post.title}</StyledTitle>
       <VoteScore inline>{props.post.voteScore}</VoteScore>
     </Header>
-    <Controls {...props} />
     <Text>{props.post.body}</Text>
     <Footer>
       <Text>Autor: {props.post.author}</Text>
       <Text>Data: {props.post.date}</Text>
     </Footer>
-    <CommentList {...props} />
+    <Controls {...props} />
+
+    <Divider style={{marginTop: '20px', marginBottom: '20px'}} />
     <CommentForm {...props} />
+
+    <Divider style={{marginTop: '20px', marginBottom: '20px'}} />
+    <CommentList {...props} />
   </StyledBox>
 )
 

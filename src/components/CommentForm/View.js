@@ -1,12 +1,13 @@
 import React from 'react'
 import { TextField } from 'material-ui'
-import { Form, SubmitButton } from './Styles'
+import { Title, Form, SubmitButton } from './Styles'
 
 const rootStyle = { width: '100%' }
 const inputStyle = { fontSize: '14px' }
 
 const View = props => (
   <Form onSubmit={props.handleSubmit}>
+    <Title>Adicione um comentário</Title>
     <TextField
       style={rootStyle}
       inputStyle={inputStyle}

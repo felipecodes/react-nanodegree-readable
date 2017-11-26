@@ -1,5 +1,10 @@
 import { RaisedButton } from 'material-ui'
 import styled from 'styled-components'
+import BoxTitle from '../common/BoxTitle'
+
+const Title = BoxTitle.extend`
+  font-weight: 900;
+`
 
 const Form = styled.form`
   display: flex;
@@ -10,4 +15,4 @@ const Form = styled.form`
 const SubmitButton = styled(RaisedButton)`
   margin-top: 16px;
 `
-export { Form, SubmitButton }
+export { Form, SubmitButton, Title }
