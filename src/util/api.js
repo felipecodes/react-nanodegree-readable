@@ -62,3 +62,10 @@ export const voteDown = id => (
     data: { option: 'downVote' }
   })
 )
+
+export const getComments = id => (
+  req({
+    method: 'GET',
+    url: `/posts/${id}/comments`
+  })
+)

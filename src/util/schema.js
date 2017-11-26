@@ -2,15 +2,14 @@ import { schema } from 'normalizr'
 
 const user = new schema.Entity('users')
 
-const category = new schema.Entity('categories')
-
 const post = new schema.Entity('posts', {
-  author: user,
-  category: category
+  author: user
 })
 
-export const userSchema = { users: [ user ] }
+const comments = new schema.Entity('comments', {
+  author: user
+})
 
 export const postSchema = { posts: [ post ] }
 
-export const categorySchema = { categories: [ category ] }
+export const commentSchema = { comments: [ comments ] }

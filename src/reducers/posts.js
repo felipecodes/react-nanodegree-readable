@@ -1,4 +1,5 @@
 import { union } from 'lodash'
+import * as sortUtils from '../util/sortUtils'
 import * as postUtils from '../util/postUtils'
 import {
   RECEIVE_POSTS,
@@ -68,7 +69,7 @@ const posts = (state = initialState, action) => {
     case SORT_BY_VOTE_SCORE:
       return {
         ...state,
-        allIds: postUtils.sortByVoteScore(state)
+        allIds: sortUtils.sortByVoteScore(state)
       }
 
     case SORT_BY_DATE:

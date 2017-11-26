@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPost } from '../../actions'
+import { fetchPostAndComments } from '../../actions'
 import View from './View'
 
 class PostDetails extends Component {
   componentWillMount() {
-    this.props.fetchPost(this.props.match.params.id)
+    this.props.fetchPostAndComments(this.props.match.params.id)
   }
 
   render() {
@@ -13,13 +13,16 @@ class PostDetails extends Component {
   }
 }
 
-const mapStateToProps = ({ postDetails, fetch }, { match }) => ({
+const mapStateToProps = ({ postDetails, comments, fetch }, { match }) => ({
   post: postDetails[match.params.id],
+  comments: (comments[match.params.id] || [])
+    .filter(id => !comments.byId[id].deleted || !comments.byId[id].parentDeleted)
+    .map(id => comments.byId[id]),
   fetch
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchPost: id => dispatch(fetchPost(id))
+  fetchPostAndComments: id => dispatch(fetchPostAndComments(id))
 })
 
 export default connect(

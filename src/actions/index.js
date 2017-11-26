@@ -1,13 +1,14 @@
 import { normalize } from 'normalizr'
 import * as api from '../util/api'
-import { postSchema } from '../util/schema'
-import * as postUtils from '../util/postUtils'
+import { postSchema, commentSchema } from '../util/schema'
+import * as sortUtils from '../util/sortUtils'
 
 export const FETCH = 'FETCH'
 export const DONE = 'DONE'
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POST = 'RECEIVE_POST'
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const ADD_TOAST = 'ADD_TOAST'
 export const VOTE_UP = 'VOTE_UP'
 export const VOTE_DOWN = 'VOTE_DOWN'
@@ -18,11 +19,39 @@ export const SORT_BY_DATE = 'SORT_BY_DATE'
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
 
+const receiveComments = ({ postId, byId, allIds }) => ({
+  type: RECEIVE_COMMENTS,
+  postId,
+  byId,
+  allIds
+})
+
 const receiveVoteScore = ({ id, voteScore }) => ({
   type: RECEIVE_VOTE_SCORE,
   voteScore,
   id,
 })
+
+const receiveCategories = ({ categories }) => ({
+  type: RECEIVE_CATEGORIES,
+  categories
+})
+
+const receivePosts = ({ byId, allIds }) => ({
+  type: RECEIVE_POSTS,
+  byId,
+  allIds
+})
+
+const receivePost = post => ({
+  type: RECEIVE_POST,
+  post
+})
+
+// const addToast = message => ({
+//   type: ADD_TOAST,
+//   message
+// })
 
 export const sortByVoteScore = () => ({
   type: SORT_BY_VOTE_SCORE
@@ -68,26 +97,6 @@ export const voteDown = ({ id }) => (dispatch, getState) => {
     .finally(() => dispatch(isDone()))
 }
 
-const receiveCategories = ({ categories }) => ({
-  type: RECEIVE_CATEGORIES,
-  categories
-})
-
-const receivePosts = ({ byId, allIds }) => ({
-  type: RECEIVE_POSTS,
-  byId,
-  allIds
-})
-
-const receivePost = post => ({
-  type: RECEIVE_POST,
-  post
-})
-
-const addToast = message => ({
-  type: ADD_TOAST,
-  message
-})
 
 export const fetchPost = id => dispatch => {
   dispatch(isFetch())
@@ -117,7 +126,7 @@ export const fetchPosts = category => dispatch => {
         } = normalize({ posts: response.data }, postSchema)
 
         dispatch(receivePosts({
-          allIds: postUtils.sortByVoteScore({ byId, allIds }),
+          allIds: sortUtils.sortByVoteScore({ byId, allIds }),
           byId
         }))
       }
@@ -149,7 +158,7 @@ export const fetchCategoriesAndPosts = category => dispatch => {
         } = normalize({ posts }, postSchema)
 
         dispatch(receivePosts({
-          allIds: postUtils.sortByVoteScore({ byId, allIds }),
+          allIds: sortUtils.sortByVoteScore({ byId, allIds }),
           byId
         }))
       }
@@ -157,6 +166,32 @@ export const fetchCategoriesAndPosts = category => dispatch => {
     // TODO:
     //  - Qual requisição deu erro?
     //  - Qual a porcentagem de carregamento?
+    // .catch(err => dispatch(addToast(err.message)))
+    .finally(() => dispatch(isDone()))
+}
+
+export const fetchPostAndComments = id => dispatch => {
+  dispatch(isFetch())
+
+  Promise.all([
+    api.getPost(id),
+    api.getComments(id)
+  ])
+    .then(([postResponse, commentsResponse]) => {
+      if (postResponse && postResponse.data) {
+        dispatch(receivePost(postResponse.data))
+      }
+
+      if (commentsResponse && commentsResponse.data) {
+        const {
+          entities: { comments: byId },
+          result: { comments: allIds }
+        } = normalize({ comments: commentsResponse.data } , commentSchema)
+
+        dispatch(receiveComments({ postId: id, byId, allIds }))
+      }
+      // dispatch(addToast(postNotFound()))
+    })
     // .catch(err => dispatch(addToast(err.message)))
     .finally(() => dispatch(isDone()))
 }
