@@ -1,30 +1,49 @@
 import React from 'react'
+import {
+  Form,
+  FormRow,
+  ErrorMessage,
+  Input,
+  Textarea,
+  Label,
+  SubmitButton
+} from './Styles'
 
 const View = props => (
-  <form onSubmit={props.handleSubmit}>
-    <textarea
-      name={'comment'}
-      value={props.fields.comment}
-      onChange={props.handleChange}
-      onBlur={props.handleBlur}
-    />
-    {!!props.errors.comment && (
-      <span>{props.errors.comment}</span>
-    )}
+  <Form onSubmit={props.handleSubmit}>
+    <FormRow>
+      <Label id={'user'}>Username</Label>
+      <Input
+        name={'user'}
+        type={'text'}
+        placeholder={'Type your username...'}
+        value={props.fields.user}
+        danger={!!props.errors.user}
+        onChange={props.handleChange}
+        onBlur={props.handleBlur}
+      />
+      {!!props.errors.user && (
+        <ErrorMessage>{props.errors.user}</ErrorMessage>
+      )}
+    </FormRow>
 
-    <input
-      name={'user'}
-      type="text"
-      value={props.fields.user}
-      onChange={props.handleChange}
-      onBlur={props.handleBlur}
-    />
-    {!!props.errors.user && (
-      <span>{props.errors.user}</span>
-    )}
+    <FormRow>
+      <Label id={'comment'}>Comentário</Label>
+      <Textarea
+        name={'comment'}
+        value={props.fields.comment}
+        placeholder={'Type your comment...'}
+        danger={!!props.errors.comment}
+        onChange={props.handleChange}
+        onBlur={props.handleBlur}
+      />
+      {!!props.errors.comment && (
+        <ErrorMessage>{props.errors.comment}</ErrorMessage>
+      )}
+    </FormRow>
 
-    <button>submit</button>
-  </form>
+    <SubmitButton type={'submit'} label={'Enviar'} primary />
+  </Form>
 )
 
 export default View

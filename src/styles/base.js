@@ -7,6 +7,7 @@ const base = `
 
   body {
     font-family: Roboto;
+    color: #333;
   }
 `
 
