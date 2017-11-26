@@ -1,6 +1,6 @@
 import { union } from 'lodash'
 import * as sortUtils from '../util/sortUtils'
-import { RECEIVE_COMMENTS, RECEVE_COMMENT } from '../actions'
+import { RECEIVE_COMMENTS, RECEIVE_COMMENT, REMOVE_COMMENT } from '../actions'
 
 const comments = (state = { byId: {} }, action) => {
   switch (action.type) {
@@ -24,7 +24,7 @@ const comments = (state = { byId: {} }, action) => {
         )
       }
 
-    case RECEVE_COMMENT:
+    case RECEIVE_COMMENT:
       return {
         ...state,
         byId: {
@@ -35,6 +35,18 @@ const comments = (state = { byId: {} }, action) => {
           state[action.comment.parentId] || [],
           [action.comment.id]
         )
+      }
+
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.id]: {
+            ...state.byId[action.id],
+            deleted: true
+          }
+        }
       }
 
     default:

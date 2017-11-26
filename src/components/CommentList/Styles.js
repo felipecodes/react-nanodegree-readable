@@ -24,4 +24,13 @@ const VoteScore = Text.extend`
   margin-left: 8px;
 `
 
-export { Box, StyledTitle, List, Item, VoteScore }
+const Input = styled.input`
+  display: block;
+  color: #333;
+
+  ${({ readOnly }) => readOnly && (
+    'border: none;'
+  )}
+`
+
+export { Box, StyledTitle, List, Item, VoteScore, Input }

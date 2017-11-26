@@ -23,7 +23,7 @@ class PostDetails extends Component {
 const mapStateToProps = ({ posts, comments, fetch }, { match }) => ({
   post: posts.byId[match.params.id],
   comments: (comments[match.params.id] || [])
-    .filter(id => !comments.byId[id].deleted || !comments.byId[id].parentDeleted)
+    .filter(id => !comments.byId[id].deleted)
     .map(id => comments.byId[id]),
   fetch
 })

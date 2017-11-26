@@ -9,7 +9,7 @@ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
-export const RECEVE_COMMENT = 'RECEVE_COMMENT'
+export const RECEIVE_COMMENT = 'RECEIVE_COMMENT'
 export const ADD_TOAST = 'ADD_TOAST'
 export const VOTE_UP = 'VOTE_UP'
 export const VOTE_DOWN = 'VOTE_DOWN'
@@ -54,7 +54,7 @@ const receivePost = post => ({
 })
 
 export const addComment = comment => ({
-  type: RECEVE_COMMENT,
+  type: RECEIVE_COMMENT,
   comment
 })
 
@@ -100,20 +100,21 @@ export const addCommentAsync = comment => dispatch => {
     .finally(() => dispatch(isDone()))
 }
 
+export const removeCommentAsync = id => dispatch => {
+  dispatch(isFetch())
+  dispatch(removeComment(id))
+
+  api.removeComment(id)
+    // .catch(error => dispatch(addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
+
 export const removePostAsync = id => dispatch => {
   dispatch(isFetch())
   dispatch(removePost(id))
 
   api.removePost(id)
     // .catch(error => dispatch(addToast(error.message)))
-    .finally(() => dispatch(isDone()))
-}
-
-export const removeCommentAsync = id => dispatch => {
-  dispatch(isFetch())
-  dispatch(removeComment(id))
-
-  api.removeComment(id)
     .finally(() => dispatch(isDone()))
 }
 
