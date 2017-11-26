@@ -1,46 +1,36 @@
 import React from 'react'
-import {
-  Form,
-  FormRow,
-  ErrorMessage,
-  Input,
-  Textarea,
-  Label,
-  SubmitButton
-} from './Styles'
+import { TextField } from 'material-ui'
+import { Form, SubmitButton } from './Styles'
+
+const rootStyle = { width: '100%' }
+const inputStyle = { fontSize: '14px' }
 
 const View = props => (
   <Form onSubmit={props.handleSubmit}>
-    <FormRow>
-      <Label id={'user'}>Username</Label>
-      <Input
-        name={'user'}
-        type={'text'}
-        placeholder={'Type your username...'}
-        value={props.fields.user}
-        danger={!!props.errors.user}
-        onChange={props.handleChange}
-        onBlur={props.handleBlur}
-      />
-      {!!props.errors.user && (
-        <ErrorMessage>{props.errors.user}</ErrorMessage>
-      )}
-    </FormRow>
+    <TextField
+      style={rootStyle}
+      inputStyle={inputStyle}
+      name={'user'}
+      type={'text'}
+      floatingLabelText={'Type your username...'}
+      value={props.fields.user}
+      errorText={props.errors.user}
+      danger={!!props.errors.user}
+      onChange={props.handleChange}
+      onBlur={props.handleBlur}
+    />
 
-    <FormRow>
-      <Label id={'comment'}>Comentário</Label>
-      <Textarea
-        name={'comment'}
-        value={props.fields.comment}
-        placeholder={'Type your comment...'}
-        danger={!!props.errors.comment}
-        onChange={props.handleChange}
-        onBlur={props.handleBlur}
-      />
-      {!!props.errors.comment && (
-        <ErrorMessage>{props.errors.comment}</ErrorMessage>
-      )}
-    </FormRow>
+    <TextField
+      multiLine
+      style={rootStyle}
+      inputStyle={inputStyle}
+      name={'comment'}
+      value={props.fields.comment}
+      floatingLabelText={'Type your comment...'}
+      errorText={props.errors.comment}
+      onChange={props.handleChange}
+      onBlur={props.handleBlur}
+    />
 
     <SubmitButton type={'submit'} label={'Enviar'} primary />
   </Form>
