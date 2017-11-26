@@ -15,6 +15,8 @@ export const VOTE_DOWN = 'VOTE_DOWN'
 export const RECEIVE_VOTE_SCORE = 'RECEIVE_VOTE_SCORE'
 export const SORT_BY_VOTE_SCORE = 'SORT_BY_VOTE_SCORE'
 export const SORT_BY_DATE = 'SORT_BY_DATE'
+export const REMOVE_POST = 'REMOVE_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
@@ -47,6 +49,25 @@ const receivePost = post => ({
   type: RECEIVE_POST,
   post
 })
+
+export const editPost = id => ({
+  type: EDIT_POST,
+  id
+})
+
+const removePost = id => ({
+  type: REMOVE_POST,
+  id
+})
+
+export const removePostAsync = id => dispatch => {
+  dispatch(isFetch())
+  dispatch(removePost(id))
+
+  api.removePost(id)
+    // .catch(error => dispatch(addToast(error.message)))
+    .finally(() => isDone())
+}
 
 // const addToast = message => ({
 //   type: ADD_TOAST,

@@ -18,7 +18,15 @@ const req = opts => (
 export const getPost = id => (
   req({
     method: 'GET',
+    url: `/posts/${id}`
+  })
+)
+
+export const removePost = id => (
+  req({
+    method: 'PUT',
     url: `/posts/${id}`,
+    data: { id, deleted: true }
   })
 )
 

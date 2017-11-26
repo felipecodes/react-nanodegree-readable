@@ -3,11 +3,14 @@ import * as sortUtils from '../util/sortUtils'
 import * as postUtils from '../util/postUtils'
 import {
   RECEIVE_POSTS,
+  RECEIVE_POST,
   RECEIVE_VOTE_SCORE,
   VOTE_UP,
   VOTE_DOWN,
   SORT_BY_VOTE_SCORE,
-  SORT_BY_DATE
+  SORT_BY_DATE,
+  REMOVE_POST,
+  EDIT_POST
 } from '../actions'
 
 const initialState = {
@@ -27,6 +30,19 @@ const posts = (state = initialState, action) => {
         allIds: union(
           state.allIds,
           action.allIds
+        )
+      }
+
+    case RECEIVE_POST:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.post.id]: action.post
+        },
+        allIds: union(
+          state.allIds,
+          [action.post.id]
         )
       }
 
@@ -76,6 +92,18 @@ const posts = (state = initialState, action) => {
       return {
         ...state,
         allIds: postUtils.sortByDate(state)
+      }
+
+    case REMOVE_POST:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.id]: {
+            ...state.byId[action.id],
+            deleted: true
+          }
+        }
       }
 
     default:

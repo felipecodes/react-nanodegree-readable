@@ -2,6 +2,7 @@ import React from 'react'
 import Text from '../../components/common/Text'
 import CommentList from '../../components/CommentList'
 import { StyledBox, StyledTitle, Header, Footer, VoteScore } from './Styles'
+import Controls from './Controls'
 
 const View = props => (
   <StyledBox>
@@ -9,6 +10,7 @@ const View = props => (
       <StyledTitle>{props.post.title}</StyledTitle>
       <VoteScore inline>{props.post.voteScore}</VoteScore>
     </Header>
+    <Controls {...props} />
     <Text>{props.post.body}</Text>
     <Footer>
       <Text>Autor: {props.post.author}</Text>

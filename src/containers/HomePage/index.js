@@ -32,7 +32,7 @@ const mapStateToProps = (state, { match }) => {
     allIds.filter(id => byId[id].category === match.params.category) : allIds
 
   return {
-    posts: ids.map(id => byId[id]),
+    posts: ids.filter(id => !byId[id].deleted).map(id => byId[id]),
     categories,
     fetch
   }
