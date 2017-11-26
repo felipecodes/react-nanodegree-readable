@@ -1,14 +1,15 @@
 import React from 'react'
+import { StyledBox, StyledTitle } from './Styles'
 
 const View = ({ post }) => {
   return (
-    <div>
-      <h1>{post.title}</h1>
+    <StyledBox>
+      <StyledTitle>{post.title}</StyledTitle>
       <p>{post.author}</p>
       <p>{post.date}</p>
       <p>{post.voteScore}</p>
       <p>{post.body}</p>
-    </div>
+    </StyledBox>
   )
 }
 
