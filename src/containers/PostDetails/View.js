@@ -1,14 +1,19 @@
 import React from 'react'
-import { StyledBox, StyledTitle } from './Styles'
+import Text from '../../components/common/Text'
+import { StyledBox, StyledTitle, Header, Footer, VoteScore } from './Styles'
 
 const View = ({ post }) => {
   return (
     <StyledBox>
-      <StyledTitle>{post.title}</StyledTitle>
-      <p>{post.author}</p>
-      <p>{post.date}</p>
-      <p>{post.voteScore}</p>
-      <p>{post.body}</p>
+      <Header>
+        <StyledTitle>{post.title}</StyledTitle>
+        <VoteScore inline>{post.voteScore}</VoteScore>
+      </Header>
+      <Text>{post.body}</Text>
+      <Footer>
+        <Text>Autor: {post.author}</Text>
+        <Text>Data: {post.date}</Text>
+      </Footer>
     </StyledBox>
   )
 }
