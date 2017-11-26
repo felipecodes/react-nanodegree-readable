@@ -9,6 +9,7 @@ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
+export const RECEVE_COMMENT = 'RECEVE_COMMENT'
 export const ADD_TOAST = 'ADD_TOAST'
 export const VOTE_UP = 'VOTE_UP'
 export const VOTE_DOWN = 'VOTE_DOWN'
@@ -52,6 +53,11 @@ const receivePost = post => ({
   post
 })
 
+export const addComment = comment => ({
+  type: RECEVE_COMMENT,
+  comment
+})
+
 export const editPost = id => ({
   type: EDIT_POST,
   id
@@ -84,6 +90,15 @@ export const sortByVoteScore = () => ({
 export const sortByDate = () => ({
   type: SORT_BY_DATE
 })
+
+export const addCommentAsync = comment => dispatch => {
+  dispatch(isFetch())
+  dispatch(addComment(comment))
+
+  api.addComment(comment)
+    // .catch(error => dispatch(addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
 
 export const removePostAsync = id => dispatch => {
   dispatch(isFetch())

@@ -1,6 +1,7 @@
 import React from 'react'
 import Text from '../../components/common/Text'
 import CommentList from '../../components/CommentList'
+import CommentForm from '../../components/CommentForm'
 import { StyledBox, StyledTitle, Header, Footer, VoteScore } from './Styles'
 import Controls from './Controls'
 
@@ -17,6 +18,7 @@ const View = props => (
       <Text>Data: {props.post.date}</Text>
     </Footer>
     <CommentList {...props} />
+    <CommentForm {...props} />
   </StyledBox>
 )
 
