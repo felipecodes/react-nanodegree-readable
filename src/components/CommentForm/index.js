@@ -57,7 +57,8 @@ class CommentForm extends Component {
     timestamp: new Date().getTime(),
     body: this.state.fields.comment,
     author: this.state.fields.user,
-    parentId: this.props.post.id
+    parentId: this.props.post.id,
+    voteScore: 0
   })
 
 
