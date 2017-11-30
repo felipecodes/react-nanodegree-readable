@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Text from '../common/Text'
-import { Box, StyledTitle, List, Item, VoteScore } from './Styles'
-import Controls from './Controls'
+import CommentItem from '../CommentItem'
+import { Box, StyledTitle, List } from './Styles'
 
 const CommentList = props => (
   <Box>
@@ -10,12 +10,11 @@ const CommentList = props => (
     {props.comments.length ? (
       <List>
         {props.comments.map(comment =>
-          <Item key={comment.id}>
-            <Text>{comment.body}</Text>
-            <Text inline>{comment.author}</Text>
-            <VoteScore inline>{comment.voteScore}</VoteScore>
-            <Controls {...props} comment={comment} />
-          </Item>
+          <CommentItem
+            {...props}
+            key={comment.id}
+            comment={comment}
+          />
         )}
       </List>
     ) : (

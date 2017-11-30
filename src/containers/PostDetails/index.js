@@ -4,7 +4,7 @@ import {
   removePostAsync,
   editPost,
   removeCommentAsync,
-  editComment,
+  editCommentAsync,
   fetchPostAndComments,
   addCommentAsync
 } from '../../actions'
@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
   removePost: ({ id }) => dispatch(removePostAsync(id)),
   editPost: ({ id }) => dispatch(editPost(id)),
   removeComment: ({ id }) => dispatch(removeCommentAsync(id)),
-  editComment: ({ id }) => dispatch(editComment(id)),
+  editComment: comment => dispatch(editCommentAsync(comment)),
   addComment: comment => dispatch(addCommentAsync(comment))
 })
 

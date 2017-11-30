@@ -87,7 +87,15 @@ export const getComments = id => (
 export const addComment = comment => (
   req({
     method: 'POST',
-    url: `/comments`,
+    url: '/comments',
+    data: comment
+  })
+)
+
+export const editComment = comment => (
+  req({
+    method: 'PUT',
+    url: `/comments/${comment.id}`,
     data: comment
   })
 )

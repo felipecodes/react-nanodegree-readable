@@ -16,11 +16,4 @@ const List = styled.ul`
   list-style: none;
 `
 
-const Item = styled.li`
-  margin-top: 16px;
-`
-
-const VoteScore = Text.extend`
-  margin-left: 8px;
-`
-export { Box, StyledTitle, List, Item, VoteScore }
+export { Box, StyledTitle, List }

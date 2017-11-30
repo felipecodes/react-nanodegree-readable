@@ -13,7 +13,7 @@ const Controls = props => (
     <RaisedButton
       buttonStyle={buttonStyle}
       primary
-      onClick={() => props.editComment(props.comment)}
+      onClick={() => props.openCommentForm()}
     >
       Edit
     </RaisedButton>

@@ -63,9 +63,9 @@ export const editPost = id => ({
   id
 })
 
-export const editComment = id => ({
+export const editComment = comment => ({
   type: EDIT_COMMENT,
-  id
+  comment
 })
 
 const removePost = id => ({
@@ -90,6 +90,15 @@ export const sortByVoteScore = () => ({
 export const sortByDate = () => ({
   type: SORT_BY_DATE
 })
+
+export const editCommentAsync = comment => dispatch => {
+  dispatch(editComment(comment))
+  dispatch(isFetch())
+
+  api.editComment(comment)
+    // .catch(error => dispatch(addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
 
 export const addCommentAsync = comment => dispatch => {
   dispatch(isFetch())
