@@ -20,6 +20,9 @@ export const REMOVE_POST = 'REMOVE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const VOTE_UP_COMMENT = 'VOTE_UP_COMMENT'
+export const VOTE_DOWN_COMMENT = 'VOTE_DOWN_COMMENT'
+export const RECEIVE_COMMENT_VOTE_SCORE = 'RECEIVE_COMMENT_VOTE_SCORE'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
@@ -83,6 +86,22 @@ const addToast = message => ({
   message
 })
 
+const voteUpComment = id => ({
+  type: VOTE_UP_COMMENT,
+  id
+})
+
+const voteDownComment = id => ({
+  type: VOTE_DOWN_COMMENT,
+  id
+})
+
+const receiveCommentVoteScore = ({ id, voteScore }) => ({
+  type: RECEIVE_COMMENT_VOTE_SCORE,
+  voteScore,
+  id
+})
+
 export const sortByVoteScore = () => ({
   type: SORT_BY_VOTE_SCORE
 })
@@ -90,6 +109,42 @@ export const sortByVoteScore = () => ({
 export const sortByDate = () => ({
   type: SORT_BY_DATE
 })
+
+export const voteDownCommentAsync = id => (dispatch, getState) => {
+  const { comments: { byId } } = getState()
+  const { voteScore } = byId[id]
+
+  dispatch(voteDownComment(id))
+  dispatch(isFetch())
+
+  api.voteDownComment(id)
+    .then(response => {
+      const comment = response.data
+      if (comment.voteScore !== voteScore - 1) {
+        dispatch(receiveCommentVoteScore(comment))
+      }
+    })
+    // .catch(error => dispatch(addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
+
+export const voteUpCommentAsync = id => (dispatch, getState) => {
+  const { comments: { byId } } = getState()
+  const { voteScore } = byId[id]
+
+  dispatch(voteUpComment(id))
+  dispatch(isFetch())
+
+  api.voteUpComment(id)
+    .then(response => {
+      const comment = response.data
+      if (comment.voteScore !== voteScore + 1) {
+        dispatch(receiveCommentVoteScore(comment))
+      }
+    })
+    // .catch(error => dispatch(addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
 
 export const editCommentAsync = comment => dispatch => {
   dispatch(editComment(comment))
@@ -137,7 +192,7 @@ export const voteUp = ({ id }) => (dispatch, getState) => {
   api.voteUp(id)
     .then(response => {
       const post = response.data
-      if (post.voteScore < voteScore || post.voteScore > voteScore + 1) {
+      if (post.voteScore !== voteScore + 1) {
         dispatch((receiveVoteScore(post)))
       }
     })
@@ -155,7 +210,7 @@ export const voteDown = ({ id }) => (dispatch, getState) => {
   api.voteDown(id)
     .then(response => {
       const post = response.data
-      if (post.voteScore < voteScore - 1 || post.voteScore >= voteScore) {
+      if (post.voteScore !== voteScore - 1) {
         dispatch((receiveVoteScore(post)))
       }
     })

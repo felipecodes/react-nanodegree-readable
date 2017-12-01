@@ -99,3 +99,19 @@ export const editComment = comment => (
     data: comment
   })
 )
+
+export const voteUpComment = id => (
+  req({
+    method: 'POST',
+    url: `/comments/${id}`,
+    data: { option: 'upVote' }
+  })
+)
+
+export const voteDownComment = id => (
+  req({
+    method: 'POST',
+    url: `/comments/${id}`,
+    data: { option: 'downVote' }
+  })
+)
