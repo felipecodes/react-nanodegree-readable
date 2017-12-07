@@ -15,7 +15,7 @@ const PostList = props => (
             padding: 0
           }}
         >
-          <CustomLink to={`/posts/${post.id}`}>{post.title}</CustomLink>
+          <CustomLink to={`/${post.category}/${post.id}`}>{post.title}</CustomLink>
           <Score>{post.voteScore}</Score>
           <IconWrapper onClick={() => props.voteUp(post)}>
             <ThumbUp

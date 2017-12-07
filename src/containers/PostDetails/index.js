@@ -17,8 +17,12 @@ class PostDetails extends Component {
     this.props.fetchPostAndComments(this.props.match.params.id)
   }
 
+  editPost = ({ id }) => {
+    this.props.history.push(`/admin/edit/post/${id}`)
+  }
+
   render() {
-    return <View {...this.props} />
+    return <View {...this.props} editPost={this.editPost} />
   }
 }
 
@@ -33,7 +37,6 @@ const mapStateToProps = ({ posts, comments, fetch }, { match }) => ({
 const mapDispatchToProps = dispatch => ({
   fetchPostAndComments: id => dispatch(fetchPostAndComments(id)),
   removePost: ({ id }) => dispatch(removePostAsync(id)),
-  editPost: ({ id }) => dispatch(editPost(id)),
   removeComment: ({ id }) => dispatch(removeCommentAsync(id)),
   editComment: comment => dispatch(editCommentAsync(comment)),
   addComment: comment => dispatch(addCommentAsync(comment)),

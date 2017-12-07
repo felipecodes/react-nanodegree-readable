@@ -110,6 +110,8 @@ export const sortByDate = () => ({
   type: SORT_BY_DATE
 })
 
+export const editPostAsync = () => {}
+
 export const voteDownCommentAsync = id => (dispatch, getState) => {
   const { comments: { byId } } = getState()
   const { voteScore } = byId[id]

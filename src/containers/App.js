@@ -6,6 +6,7 @@ import { MuiThemeProvider } from 'material-ui'
 import Header from '../components/Header'
 import HomePage from './HomePage'
 import PostDetails from './PostDetails'
+import AdminPage from './AdminPage'
 
 const App = ({ store }) => (
   <Provider store={store}>
@@ -14,7 +15,9 @@ const App = ({ store }) => (
         <Header />
         <Route exact path={'/'} component={HomePage} />
         <Route exact path={'/:category'} component={HomePage} />
-        <Route exact path={'/posts/:id'} component={PostDetails} />
+        <Route exact path={'/:category/:id'} component={PostDetails} />
+        <Route exact path={'/admin/edit/post/:id'} component={AdminPage} />
+        <Route exact path={'/admin/add/post'} component={AdminPage} />
       </div>
     </MuiThemeProvider>
   </Provider>

@@ -21,7 +21,10 @@ const Controls = props => (
     <RaisedButton
       buttonStyle={buttonStyle}
       secondary
-      onClick={() => props.removePost(props.post)}
+      onClick={() => {
+        props.removePost(props.post)
+        props.history.push('/')
+      }}
     >
       Remove
     </RaisedButton>
