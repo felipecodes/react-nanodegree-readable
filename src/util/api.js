@@ -115,3 +115,11 @@ export const voteDownComment = id => (
     data: { option: 'downVote' }
   })
 )
+
+export const editPost = post => (
+  req({
+    method: 'PUT',
+    url: `/posts/${post.id}`,
+    data: post
+  })
+)

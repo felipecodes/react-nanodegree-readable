@@ -23,9 +23,15 @@ export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const VOTE_UP_COMMENT = 'VOTE_UP_COMMENT'
 export const VOTE_DOWN_COMMENT = 'VOTE_DOWN_COMMENT'
 export const RECEIVE_COMMENT_VOTE_SCORE = 'RECEIVE_COMMENT_VOTE_SCORE'
+export const RECEIVE_EDITED_POST = 'RECEIVE_EDITED_POST'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })
+
+const receiveEditedPost = post => ({
+  type: RECEIVE_EDITED_POST,
+  post
+})
 
 const receiveComments = ({ postId, byId, allIds }) => ({
   type: RECEIVE_COMMENTS,
@@ -110,7 +116,19 @@ export const sortByDate = () => ({
   type: SORT_BY_DATE
 })
 
-export const editPostAsync = () => {}
+export const createPost = post => {}
+
+export const editPostAsync = post => dispatch => {
+  dispatch(isFetch())
+  dispatch(editPost(post))
+
+  api.editPost(post)
+    .then(response => {
+      dispatch(receiveEditedPost(response.data))
+    })
+    // .catch(error => dispatch(addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
 
 export const voteDownCommentAsync = id => (dispatch, getState) => {
   const { comments: { byId } } = getState()

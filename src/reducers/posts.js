@@ -10,7 +10,8 @@ import {
   SORT_BY_VOTE_SCORE,
   SORT_BY_DATE,
   REMOVE_POST,
-  EDIT_POST
+  EDIT_POST,
+  RECEIVE_EDITED_POST
 } from '../actions'
 
 const initialState = {
@@ -34,6 +35,7 @@ const posts = (state = initialState, action) => {
       }
 
     case RECEIVE_POST:
+    case RECEIVE_EDITED_POST:
       return {
         ...state,
         byId: {
