@@ -4,15 +4,19 @@ import { fetchPost, editPostAsync, removePostAsync, createPost } from '../../act
 import View from './View'
 
 class AdminPage extends Component {
-  static defaultProps = {
-    values: {}
+  state = {
+    values: {},
+    errors: {}
   }
 
   componentWillMount() {
     this.props.fetchPost(this.props.match.params.id)
 
     if (this.props.values) {
-      this.setState({ values: { ...this.props.values } })
+      this.setState({
+        ...this.state,
+        values: { ...this.props.values }
+      })
     }
   }
 
