@@ -11,7 +11,7 @@ const style = {
 const Controls = props => (
   <CustomBox>
     <FlatButton
-      onClick={() => props.history.push('/admin')}
+      onClick={() => props.history.push('/admin/add/post')}
       style={style}
       secondary
     >

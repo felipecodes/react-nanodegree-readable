@@ -1,5 +1,6 @@
 import { normalize } from 'normalizr'
 import * as api from '../util/api'
+import uuid from 'uuid/v1'
 import { postSchema, commentSchema } from '../util/schema'
 import * as sortUtils from '../util/sortUtils'
 
@@ -116,7 +117,20 @@ export const sortByDate = () => ({
   type: SORT_BY_DATE
 })
 
-export const createPost = post => {}
+export const createPost = post => dispatch => {
+  dispatch(isFetch())
+
+  api.createPost({
+    ...post,
+    id: uuid(),
+    timestamp: (new Date()).getTime(),
+  })
+    .then(response => {
+      dispatch(receivePost(response.data))
+    })
+    // .catch(error => dispatch(addToast(error.message))
+    .finally(() => dispatch(isDone()))
+}
 
 export const editPostAsync = post => dispatch => {
   dispatch(isFetch())

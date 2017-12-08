@@ -123,3 +123,11 @@ export const editPost = post => (
     data: post
   })
 )
+
+export const createPost = post => (
+  req({
+    method: 'POST',
+    url: '/posts',
+    data: post
+  })
+)

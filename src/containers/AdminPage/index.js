@@ -16,7 +16,9 @@ class AdminPage extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchPost(this.props.match.params.id)
+    if (this.props.match.params.id) {
+      this.props.fetchPost(this.props.match.params.id)
+    }
 
     if (this.props.values) {
       this.setState({
@@ -101,7 +103,7 @@ class AdminPage extends Component {
     }
 
     // is create page
-    if (/^\/admin\/add\/post\//.test(this.props.location.pathname)) {
+    if (/^\/admin\/add\/post/.test(this.props.location.pathname)) {
       this.props.createPost(this.state.values)
     }
   }
