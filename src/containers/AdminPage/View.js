@@ -16,6 +16,18 @@ const View = props => (
         multiLine
         style={rootStyle}
         inputStyle={inputStyle}
+        name={'author'}
+        value={props.values.author}
+        errorText={props.errors.author}
+        danger={!!props.errors.author}
+        floatingLabelText={'Type your username'}
+        onChange={props.handleChange}
+      />
+
+      <TextField
+        multiLine
+        style={rootStyle}
+        inputStyle={inputStyle}
         name={'title'}
         value={props.values.title}
         errorText={props.errors.title}

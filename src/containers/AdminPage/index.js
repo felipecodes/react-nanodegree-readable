@@ -46,6 +46,7 @@ class AdminPage extends Component {
 
   isValid = () => {
     return this.state.values.title && this.state.values.body
+      && this.state.values.author
   }
 
   getErrors = () => {
@@ -57,6 +58,10 @@ class AdminPage extends Component {
 
     if (!this.state.values.body) {
       errors.body = 'body is required'
+    }
+
+    if (!this.state.values.author) {
+      errors.author = 'author is required'
     }
 
     return errors
