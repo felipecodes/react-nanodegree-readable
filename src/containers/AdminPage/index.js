@@ -4,9 +4,15 @@ import { fetchPost, editPostAsync, removePostAsync, createPost } from '../../act
 import View from './View'
 
 class AdminPage extends Component {
-  state = {
-    values: {},
-    errors: {}
+  constructor(props) {
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+
+    this.state = {
+      values: {},
+      errors: {},
+      open: false
+    }
   }
 
   componentWillMount() {
@@ -29,9 +35,43 @@ class AdminPage extends Component {
     }
   }
 
+  handleRequestClose = () => {
+    this.setState({
+      ...this.state,
+      open: false
+    })
+  }
+
+  isValid = () => {
+    return this.state.values.title && this.state.values.body
+  }
+
+  getErrors = () => {
+    const errors = Object.create(null)
+
+    if (!this.state.values.title) {
+      errors.title = 'title is required'
+    }
+
+    if (!this.state.values.body) {
+      errors.body = 'body is required'
+    }
+
+    return errors
+  }
+
+  getFieldError = ({ name, value }) => {
+    return { [name]: value ? '' : `${name} is required` }
+  }
+
   handleChange = event => {
     this.setState({
       ...this.state,
+      touched: true,
+      errors: {
+        ...this.state.errors,
+        ...this.getFieldError(event.target)
+      },
       values: {
         ...this.state.values,
         [event.target.name]: event.target.value
@@ -41,6 +81,19 @@ class AdminPage extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
+
+    if (!this.state.touched) {
+      return
+    }
+
+    if (!this.isValid()) {
+      return this.setState({
+        ...this.state,
+        errors: this.getErrors()
+      })
+    }
+
+    this.setState({ open: true })
 
     // is edit page
     if (/^\/admin\/edit\/post\//.test(this.props.location.pathname)) {
@@ -60,6 +113,7 @@ class AdminPage extends Component {
         {...this.state}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        handleRequestClose={this.handleRequestClose}
       />
     )
   }

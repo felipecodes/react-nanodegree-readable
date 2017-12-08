@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TextField } from 'material-ui'
+import { Snackbar } from 'material-ui'
 import { RaisedButton } from 'material-ui'
 import { Grid } from '../../components/Grid'
 import { Form } from './Styles'
@@ -41,9 +42,16 @@ const View = props => (
         style={{marginTop: '16px'}}
         type={'submit'}
       >
-        submit
+        Save
       </RaisedButton>
     </Form>
+
+    <Snackbar
+      open={props.open}
+      message={'saved'}
+      autoHideDuration={4000}
+      onRequestClose={props.handleRequestClose}
+    />
   </Grid>
 )
 
