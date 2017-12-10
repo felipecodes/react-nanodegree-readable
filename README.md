@@ -2,6 +2,11 @@
 
 > React nanodegree
 
+## Instructions
+
 ```bash
-curl http://localhost:3001/categories -H "Authorization: bearer token"
+$ git clone git@github.com:thefelpes/react-nanodegree-readable.git
+$ cd react-nanodegree-readable
+$ npm install
+$ npm start
 ```
