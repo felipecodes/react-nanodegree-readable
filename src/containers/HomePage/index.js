@@ -7,7 +7,9 @@ import {
   voteDown,
   sortByVoteScore,
   sortByDate,
-  removePostAsync
+  removePostAsync,
+  voteUpCommentAsync,
+  voteDownCommentAsync
 } from '../../actions'
 import View from './View'
 
@@ -56,7 +58,9 @@ const mapDispatchToProps = dispatch => ({
   voteDown: post => dispatch(voteDown(post)),
   sortByVoteScore: () => dispatch(sortByVoteScore()),
   sortByDate: () => dispatch(sortByDate()),
-  removePost: ({ id }) => dispatch(removePostAsync(id))
+  removePost: ({ id }) => dispatch(removePostAsync(id)),
+  voteUpComment: ({ id }) => dispatch(voteUpCommentAsync(id)),
+  voteDownComment: ({ id }) => dispatch(voteDownCommentAsync(id))
 })
 
 export default connect(

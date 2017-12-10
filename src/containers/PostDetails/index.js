@@ -7,8 +7,8 @@ import {
   editCommentAsync,
   fetchPostAndComments,
   addCommentAsync,
-  voteUpCommentAsync,
-  voteDownCommentAsync
+  voteUp,
+  voteDown
 } from '../../actions'
 import View from './View'
 
@@ -43,8 +43,8 @@ const mapDispatchToProps = dispatch => ({
   removeComment: ({ id }) => dispatch(removeCommentAsync(id)),
   editComment: comment => dispatch(editCommentAsync(comment)),
   addComment: comment => dispatch(addCommentAsync(comment)),
-  voteUpComment: ({ id }) => dispatch(voteUpCommentAsync(id)),
-  voteDownComment: ({ id }) => dispatch(voteDownCommentAsync(id))
+  voteUp: post => dispatch(voteUp(post)),
+  voteDown: post => dispatch(voteDown(post)),
 })
 
 export default connect(

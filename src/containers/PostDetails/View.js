@@ -4,8 +4,9 @@ import Text from '../../components/common/Text'
 import Wrap from '../../components/Wrap'
 import CommentList from '../../components/CommentList'
 import CommentForm from '../../components/CommentForm'
-import { StyledBox, StyledTitle, Header, Footer, VoteScore } from './Styles'
 import Controls from '../../components/PostControls'
+import PostVoteControls from '../../components/PostVoteControls'
+import { StyledBox, StyledTitle, Header, Footer, VoteWrapper, VoteScore } from './Styles'
 
 const View = props => (
   <StyledBox>
@@ -13,12 +14,16 @@ const View = props => (
       <Wrap>
         <Header>
           <StyledTitle>{props.post.title}</StyledTitle>
-          <VoteScore inline>{props.post.voteScore}</VoteScore>
+          <VoteWrapper>
+            <PostVoteControls {...props} />
+            <VoteScore inline>{props.post.voteScore}</VoteScore>
+          </VoteWrapper>
         </Header>
         <Text>{props.post.body}</Text>
         <Footer>
           <Text>Autor: {props.post.author}</Text>
           <Text>Data: {props.post.date}</Text>
+          <Text>Comentários: {props.post.commentCount}</Text>
         </Footer>
         <Controls {...props} />
 

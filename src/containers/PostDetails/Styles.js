@@ -3,34 +3,37 @@ import Box from '../../components/common/Box'
 import BoxTitle from '../../components/common/BoxTitle'
 import Text from '../../components/common/Text'
 
-const BoxStyles = Box.extend`
+export const BoxStyles = Box.extend`
   max-width: 960px;
   margin-right: auto;
   margin-left: auto;
   padding: 16px;
 `
 
-const TitleStyles = BoxTitle.extend`
+export const TitleStyles = BoxTitle.extend`
   display: inline-block;
   font-weight: 900;
 `
 
-const Header = styled.header`
+export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
 `
 
-const Footer = styled.footer`
+export const Footer = styled.footer`
   margin-top: 16px;
 `
 
-const VoteScore = Text.extend`
+export const VoteWrapper = styled.div`
+  display: flex;
+`
+
+export const VoteScore = Text.extend`
+  margin-left: 1em;
   color: red;
 `
 
-const StyledBox = BoxStyles.withComponent('article')
+export const StyledBox = BoxStyles.withComponent('article')
 
-const StyledTitle = TitleStyles.withComponent('h1')
-
-export { StyledBox, StyledTitle, Header, Footer, Text, VoteScore }
+export const StyledTitle = TitleStyles.withComponent('h1')

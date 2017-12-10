@@ -24,18 +24,6 @@ export const Details = styled.div`
   padding: 0 1em 1em 1em;
 `
 
-export const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding-right: 8px;
-  padding-left: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #eee;
-  }
-`
-
 export const CustomLink = styled(Link)`
   display: inline-block;
   padding: 16px;
