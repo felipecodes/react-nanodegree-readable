@@ -333,15 +333,18 @@ export const fetchPostAndComments = id => dispatch => {
     api.getComments(id)
   ])
     .then(([postResponse, commentsResponse]) => {
-      if (postResponse && postResponse.data) {
-        dispatch(receivePost(postResponse.data))
+      const post = postResponse.data
+      const comments = commentsResponse.data
+
+      if (post && post.id) {
+        dispatch(receivePost(post))
       }
 
-      if (commentsResponse && commentsResponse.data) {
+      if (comments && comments.length) {
         const {
           entities: { comments: byId },
           result: { comments: allIds }
-        } = normalize({ comments: commentsResponse.data } , commentSchema)
+        } = normalize({ comments } , commentSchema)
 
         dispatch(receiveComments({ postId: id, byId, allIds }))
       }
