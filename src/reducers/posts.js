@@ -1,6 +1,7 @@
 import { union } from 'lodash'
 import * as sortUtils from '../util/sortUtils'
 import * as postUtils from '../util/postUtils'
+import * as dateUtils from '../util/dateUtils'
 import {
   RECEIVE_POSTS,
   RECEIVE_POST,
@@ -13,6 +14,8 @@ import {
   EDIT_POST,
   RECEIVE_EDITED_POST
 } from '../actions'
+
+
 
 const initialState = {
   byId: {},
@@ -40,7 +43,10 @@ const posts = (state = initialState, action) => {
         ...state,
         byId: {
           ...state.byId,
-          [action.post.id]: action.post
+          [action.post.id]: {
+            ...action.post,
+            date: dateUtils.getFormatedDate(action.post.timestamp)
+          }
         },
         allIds: union(
           state.allIds,
