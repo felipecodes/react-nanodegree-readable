@@ -1,19 +1,26 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const List = styled.ul`
+export const Row = styled.div`
+  display: flex;
+`
+
+export const List = styled.ul`
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 `
 
-const Item = styled.li`
-  display: flex;
+export const Item = styled.li`
   border-bottom: 1px solid #eee;
 `
 
-const IconWrapper = styled.div`
+export const Details = styled.div`
+  padding: 0 1em 1em 1em;
+`
+
+export const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   padding-right: 8px;
@@ -25,20 +32,22 @@ const IconWrapper = styled.div`
   }
 `
 
-const CustomLink = styled(Link)`
+export const CustomLink = styled(Link)`
   display: inline-block;
   padding: 16px;
   width: 100%;
   text-decoration: none;
   color: #000000;
+
+  &:hover {
+    color: #ff1400;
+  }
 `
 
-const Score = styled.div`
+export const Score = styled.div`
   display: flex;
   align-items: center;
   padding-right: 6px;
   font-size: 14px;
   color: #555;
 `
-
-export { List, Item, Score, IconWrapper, CustomLink }
