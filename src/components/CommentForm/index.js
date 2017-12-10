@@ -58,7 +58,7 @@ class CommentForm extends Component {
     body: this.state.fields.comment,
     author: this.state.fields.user,
     parentId: this.props.post.id,
-    voteScore: 0
+    voteScore: 1
   })
 
 
