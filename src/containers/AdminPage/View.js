@@ -40,6 +40,18 @@ const View = props => (
         multiLine
         style={rootStyle}
         inputStyle={inputStyle}
+        name={'category'}
+        value={props.values.category}
+        errorText={props.errors.category}
+        danger={!!props.errors.category}
+        floatingLabelText={'Type your post category'}
+        onChange={props.handleChange}
+      />
+
+      <TextField
+        multiLine
+        style={rootStyle}
+        inputStyle={inputStyle}
         name={'body'}
         value={props.values.body}
         errorText={props.errors.body}

@@ -56,6 +56,10 @@ class AdminPage extends Component {
       errors.title = 'title is required'
     }
 
+    if (!this.state.values.category) {
+      errors.category = 'category is required'
+    }
+
     if (!this.state.values.body) {
       errors.body = 'body is required'
     }
@@ -74,7 +78,6 @@ class AdminPage extends Component {
   handleChange = event => {
     this.setState({
       ...this.state,
-      touched: true,
       errors: {
         ...this.state.errors,
         ...this.getFieldError(event.target)
@@ -88,10 +91,6 @@ class AdminPage extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-
-    if (!this.state.touched) {
-      return
-    }
 
     if (!this.isValid()) {
       return this.setState({
@@ -110,6 +109,7 @@ class AdminPage extends Component {
     // is create page
     if (/^\/admin\/add\/post/.test(this.props.location.pathname)) {
       this.props.createPost(this.state.values)
+      this.props.history.push('/')
     }
   }
 
