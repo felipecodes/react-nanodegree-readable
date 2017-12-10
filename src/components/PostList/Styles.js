@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 
 export const Row = styled.div`
   display: flex;
+  padding-right: 1em;
+  justify-content: space-between;
+  align-items: ${({ verticalAlign }) =>
+    verticalAlign ? 'center' : 'initial'};
 `
 
 export const List = styled.ul`

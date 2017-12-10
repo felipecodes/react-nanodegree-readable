@@ -5,7 +5,7 @@ import Wrap from '../../components/Wrap'
 import CommentList from '../../components/CommentList'
 import CommentForm from '../../components/CommentForm'
 import { StyledBox, StyledTitle, Header, Footer, VoteScore } from './Styles'
-import Controls from './Controls'
+import Controls from '../../components/PostControls'
 
 const View = props => (
   <StyledBox>

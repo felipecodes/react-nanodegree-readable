@@ -26,13 +26,16 @@ class PostDetails extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, comments, fetch }, { match }) => ({
-  post: posts.byId[match.params.id],
-  comments: (comments[match.params.id] || [])
-    .filter(id => !comments.byId[id].deleted)
-    .map(id => comments.byId[id]),
-  fetch
-})
+const mapStateToProps = ({ posts, comments, fetch }, { match }) => {
+  const post = posts.byId[match.params.id] || {}
+  return {
+    post: post.deleted ? {} : post,
+    comments: (comments[match.params.id] || [])
+      .filter(id => !comments.byId[id].deleted)
+      .map(id => comments.byId[id]),
+    fetch
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   fetchPostAndComments: id => dispatch(fetchPostAndComments(id)),

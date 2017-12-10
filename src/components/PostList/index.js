@@ -3,6 +3,7 @@ import ThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import ThumbUp from 'material-ui/svg-icons/action/thumb-up'
 import Box from '../common/Box'
 import Text from '../common/Text'
+import PostControls from '../PostControls'
 import { Row, List, Item, Details, Score, IconWrapper, CustomLink } from './Styles'
 
 const PostList = props => (
@@ -30,11 +31,12 @@ const PostList = props => (
               />
             </IconWrapper>
           </Row>
-          <Row>
+          <Row verticalAlign>
             <Details>
               <Text>By: {post.author}</Text>
               <Text>{post.commentCount} comments</Text>
             </Details>
+            <PostControls post={post} {...props} />
           </Row>
         </Item>
       ))}

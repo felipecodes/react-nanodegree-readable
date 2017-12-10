@@ -6,7 +6,8 @@ import {
   voteUp,
   voteDown,
   sortByVoteScore,
-  sortByDate
+  sortByDate,
+  removePostAsync
 } from '../../actions'
 import View from './View'
 
@@ -21,8 +22,18 @@ class HomePage extends Component {
     }
   }
 
+  editPost = ({ id }) => {
+    this.props.history.push(`/admin/edit/post/${id}`)
+  }
+
   render() {
-    return <View {...this.props} {...this.state} />
+    return (
+      <View
+        {...this.props}
+        {...this.state}
+        editPost={this.editPost}
+      />
+    )
   }
 }
 
@@ -44,7 +55,8 @@ const mapDispatchToProps = dispatch => ({
   voteUp: post => dispatch(voteUp(post)),
   voteDown: post => dispatch(voteDown(post)),
   sortByVoteScore: () => dispatch(sortByVoteScore()),
-  sortByDate: () => dispatch(sortByDate())
+  sortByDate: () => dispatch(sortByDate()),
+  removePost: ({ id }) => dispatch(removePostAsync(id))
 })
 
 export default connect(
