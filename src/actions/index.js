@@ -12,16 +12,12 @@ import {
   RECEIVE_COMMENTS,
   RECEIVE_COMMENT,
   // ADD_TOAST,
-  VOTE_UP,
-  VOTE_DOWN,
   RECEIVE_VOTE_SCORE,
   SORT_BY_VOTE_SCORE,
   SORT_BY_DATE,
   REMOVE_POST,
   REMOVE_COMMENT,
   EDIT_COMMENT,
-  VOTE_UP_COMMENT,
-  VOTE_DOWN_COMMENT,
   RECEIVE_COMMENT_VOTE_SCORE,
   RECEIVE_EDITED_POST
 } from './constantes'
@@ -88,10 +84,6 @@ const removeComment = comment => ({
 //   message
 // })
 
-const voteUpComment = id => ({
-  type: VOTE_UP_COMMENT,
-  id
-})
 
 const receiveCommentVoteScore = ({ id, voteScore }) => ({
   type: RECEIVE_COMMENT_VOTE_SCORE,
@@ -115,9 +107,7 @@ export const createPost = post => dispatch => {
     id: uuid(),
     timestamp: (new Date()).getTime(),
   })
-    .then(response => {
-      dispatch(receivePost(response.data))
-    })
+    .then(response => dispatch(receivePost(response.data)))
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
@@ -186,37 +176,19 @@ export const removePostAsync = id => dispatch => {
 }
 
 export const voteUp = ({ id }) => (dispatch, getState) => {
-  const { posts: { byId } } = getState()
-  const { voteScore } = byId[id]
-
   dispatch(isFetch())
-  dispatch({ type: VOTE_UP, id })
 
   api.voteUp(id)
-    .then(response => {
-      const post = response.data
-      if (post.voteScore !== voteScore + 1) {
-        dispatch((receiveVoteScore(post)))
-      }
-    })
+    .then(response => dispatch((receiveVoteScore(response.data))))
     // .catch(error => addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
 
 export const voteDown = ({ id }) => (dispatch, getState) => {
-  const { posts: { byId } } = getState()
-  const { voteScore } = byId[id]
-
   dispatch(isFetch())
-  dispatch({ type: VOTE_DOWN, id })
 
   api.voteDown(id)
-    .then(response => {
-      const post = response.data
-      if (post.voteScore !== voteScore - 1) {
-        dispatch((receiveVoteScore(post)))
-      }
-    })
+    .then(response => dispatch((receiveVoteScore(response.data))))
     // .catch(error => addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
