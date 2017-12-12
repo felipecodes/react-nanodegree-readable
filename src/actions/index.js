@@ -77,9 +77,9 @@ const removePost = id => ({
   id
 })
 
-const removeComment = id => ({
+const removeComment = comment => ({
   type: REMOVE_COMMENT,
-  id
+  comment
 })
 
 // const addToast = message => ({
@@ -182,27 +182,29 @@ export const editCommentAsync = comment => dispatch => {
 
 export const addCommentAsync = comment => dispatch => {
   dispatch(isFetch())
-  dispatch(addComment(comment))
 
   api.addComment(comment)
+    .then(response => dispatch(addComment(response.data)))
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
 
 export const removeCommentAsync = id => dispatch => {
   dispatch(isFetch())
-  dispatch(removeComment(id))
 
   api.removeComment(id)
+    .then(response =>  {
+      dispatch(removeComment(response.data))
+    })
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
 
 export const removePostAsync = id => dispatch => {
   dispatch(isFetch())
-  dispatch(removePost(id))
 
   api.removePost(id)
+    .then(response => dispatch(removePost(id)))
     // .catch(error => dispatch(addToast(error.message)))
     .finally(() => dispatch(isDone()))
 }

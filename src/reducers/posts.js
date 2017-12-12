@@ -11,7 +11,9 @@ import {
   SORT_BY_VOTE_SCORE,
   SORT_BY_DATE,
   REMOVE_POST,
-  RECEIVE_EDITED_POST
+  RECEIVE_EDITED_POST,
+  RECEIVE_COMMENT,
+  REMOVE_COMMENT
 } from '../actions'
 
 
@@ -51,6 +53,18 @@ const posts = (state = initialState, action) => {
           state.allIds,
           [action.post.id]
         )
+      }
+
+    case RECEIVE_COMMENT:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.comment.parentId]: {
+            ...state.byId[action.comment.parentId],
+            commentCount: ++state.byId[action.comment.parentId].commentCount
+          }
+        }
       }
 
     case RECEIVE_VOTE_SCORE:
@@ -109,6 +123,18 @@ const posts = (state = initialState, action) => {
           [action.id]: {
             ...state.byId[action.id],
             deleted: true
+          }
+        }
+      }
+
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.comment.parentId]: {
+            ...state.byId[action.comment.parentId],
+            commentCount: --state.byId[action.comment.parentId].commentCount
           }
         }
       }

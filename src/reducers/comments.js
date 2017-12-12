@@ -50,8 +50,8 @@ const comments = (state = { byId: {} }, action) => {
         ...state,
         byId: {
           ...state.byId,
-          [action.id]: {
-            ...state.byId[action.id],
+          [action.comment.id]: {
+            ...state.byId[action.comment.id],
             deleted: true
           }
         }
