@@ -18,7 +18,6 @@ export const RECEIVE_VOTE_SCORE = 'RECEIVE_VOTE_SCORE'
 export const SORT_BY_VOTE_SCORE = 'SORT_BY_VOTE_SCORE'
 export const SORT_BY_DATE = 'SORT_BY_DATE'
 export const REMOVE_POST = 'REMOVE_POST'
-export const EDIT_POST = 'EDIT_POST'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const VOTE_UP_COMMENT = 'VOTE_UP_COMMENT'
@@ -68,11 +67,6 @@ export const addComment = comment => ({
   comment
 })
 
-export const editPost = id => ({
-  type: EDIT_POST,
-  id
-})
-
 export const editComment = comment => ({
   type: EDIT_COMMENT,
   comment
@@ -88,10 +82,10 @@ const removeComment = id => ({
   id
 })
 
-const addToast = message => ({
-  type: ADD_TOAST,
-  message
-})
+// const addToast = message => ({
+//   type: ADD_TOAST,
+//   message
+// })
 
 const voteUpComment = id => ({
   type: VOTE_UP_COMMENT,
@@ -134,12 +128,9 @@ export const createPost = post => dispatch => {
 
 export const editPostAsync = post => dispatch => {
   dispatch(isFetch())
-  dispatch(editPost(post))
 
   api.editPost(post)
-    .then(response => {
-      dispatch(receiveEditedPost(response.data))
-    })
+    .then(response => dispatch(receiveEditedPost(response.data)))
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
