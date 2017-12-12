@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import Text from '../common/Text'
 import BoxTitle from '../common/BoxTitle'
 
 const Box = styled.section`

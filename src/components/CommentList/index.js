@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Text from '../common/Text'
 import CommentItem from '../CommentItem'
 import { Box, StyledTitle, List } from './Styles'
@@ -20,7 +20,6 @@ const CommentList = props => (
     ) : (
       <Text>Seja o primeiro a comentar nesse post</Text>
     )}
-
   </Box>
 )
 
