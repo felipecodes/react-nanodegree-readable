@@ -10,7 +10,7 @@ const req = opts => (
   axios({
     ...opts,
     baseURL: process.env.REACT_APP_PROXY || '',
-    headers: { Authorization: 'bearer token123' },
+    headers: { Authorization: 'bearer token122' },
     withCredentials: false
   })
 )

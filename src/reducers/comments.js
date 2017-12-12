@@ -8,7 +8,7 @@ import {
   VOTE_UP_COMMENT,
   RECEIVE_COMMENT_VOTE_SCORE,
   VOTE_DOWN_COMMENT
-} from '../actions'
+} from '../actions/constantes'
 
 const comments = (state = { byId: {} }, action) => {
   switch (action.type) {

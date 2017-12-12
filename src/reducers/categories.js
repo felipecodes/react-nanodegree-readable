@@ -1,5 +1,5 @@
 import { unionBy } from 'lodash'
-import { RECEIVE_CATEGORIES } from '../actions'
+import { RECEIVE_CATEGORIES } from '../actions/constantes'
 
 const categories = (state = [], action) => {
   switch (action.type) {

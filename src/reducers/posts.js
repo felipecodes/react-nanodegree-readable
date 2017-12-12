@@ -14,7 +14,7 @@ import {
   RECEIVE_EDITED_POST,
   RECEIVE_COMMENT,
   REMOVE_COMMENT
-} from '../actions'
+} from '../actions/constantes'
 
 
 

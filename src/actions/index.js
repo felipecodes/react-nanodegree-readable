@@ -3,27 +3,28 @@ import * as api from '../util/api'
 import uuid from 'uuid/v1'
 import { postSchema, commentSchema } from '../util/schema'
 import * as sortUtils from '../util/sortUtils'
-
-export const FETCH = 'FETCH'
-export const DONE = 'DONE'
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const RECEIVE_POST = 'RECEIVE_POST'
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
-export const RECEIVE_COMMENT = 'RECEIVE_COMMENT'
-export const ADD_TOAST = 'ADD_TOAST'
-export const VOTE_UP = 'VOTE_UP'
-export const VOTE_DOWN = 'VOTE_DOWN'
-export const RECEIVE_VOTE_SCORE = 'RECEIVE_VOTE_SCORE'
-export const SORT_BY_VOTE_SCORE = 'SORT_BY_VOTE_SCORE'
-export const SORT_BY_DATE = 'SORT_BY_DATE'
-export const REMOVE_POST = 'REMOVE_POST'
-export const REMOVE_COMMENT = 'REMOVE_COMMENT'
-export const EDIT_COMMENT = 'EDIT_COMMENT'
-export const VOTE_UP_COMMENT = 'VOTE_UP_COMMENT'
-export const VOTE_DOWN_COMMENT = 'VOTE_DOWN_COMMENT'
-export const RECEIVE_COMMENT_VOTE_SCORE = 'RECEIVE_COMMENT_VOTE_SCORE'
-export const RECEIVE_EDITED_POST = 'RECEIVE_EDITED_POST'
+import {
+  FETCH,
+  DONE,
+  RECEIVE_CATEGORIES,
+  RECEIVE_POSTS,
+  RECEIVE_POST,
+  RECEIVE_COMMENTS,
+  RECEIVE_COMMENT,
+  // ADD_TOAST,
+  VOTE_UP,
+  VOTE_DOWN,
+  RECEIVE_VOTE_SCORE,
+  SORT_BY_VOTE_SCORE,
+  SORT_BY_DATE,
+  REMOVE_POST,
+  REMOVE_COMMENT,
+  EDIT_COMMENT,
+  VOTE_UP_COMMENT,
+  VOTE_DOWN_COMMENT,
+  RECEIVE_COMMENT_VOTE_SCORE,
+  RECEIVE_EDITED_POST
+} from './constantes'
 
 const isFetch = () => ({ type: FETCH })
 const isDone = () => ({ type: DONE })

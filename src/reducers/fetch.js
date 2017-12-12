@@ -1,4 +1,4 @@
-import { FETCH, DONE } from '../actions'
+import { FETCH, DONE } from '../actions/constantes'
 
 const fetch = (state = false, action) => {
   switch (action.type) {
