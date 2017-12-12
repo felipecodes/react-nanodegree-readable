@@ -93,11 +93,6 @@ const voteUpComment = id => ({
   id
 })
 
-const voteDownComment = id => ({
-  type: VOTE_DOWN_COMMENT,
-  id
-})
-
 const receiveCommentVoteScore = ({ id, voteScore }) => ({
   type: RECEIVE_COMMENT_VOTE_SCORE,
   voteScore,
@@ -137,46 +132,28 @@ export const editPostAsync = post => dispatch => {
 }
 
 export const voteDownCommentAsync = id => (dispatch, getState) => {
-  const { comments: { byId } } = getState()
-  const { voteScore } = byId[id]
-
-  dispatch(voteDownComment(id))
   dispatch(isFetch())
 
   api.voteDownComment(id)
-    .then(response => {
-      const comment = response.data
-      if (comment.voteScore !== voteScore - 1) {
-        dispatch(receiveCommentVoteScore(comment))
-      }
-    })
+    .then(response => dispatch(receiveCommentVoteScore(response.data)))
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
 
 export const voteUpCommentAsync = id => (dispatch, getState) => {
-  const { comments: { byId } } = getState()
-  const { voteScore } = byId[id]
-
-  dispatch(voteUpComment(id))
   dispatch(isFetch())
 
   api.voteUpComment(id)
-    .then(response => {
-      const comment = response.data
-      if (comment.voteScore !== voteScore + 1) {
-        dispatch(receiveCommentVoteScore(comment))
-      }
-    })
+    .then(response => dispatch(receiveCommentVoteScore(response.data)))
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
 
 export const editCommentAsync = comment => dispatch => {
-  dispatch(editComment(comment))
   dispatch(isFetch())
 
   api.editComment(comment)
+    .then(response => dispatch(editComment(response.data)))
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
@@ -194,9 +171,7 @@ export const removeCommentAsync = id => dispatch => {
   dispatch(isFetch())
 
   api.removeComment(id)
-    .then(response =>  {
-      dispatch(removeComment(response.data))
-    })
+    .then(response =>  dispatch(removeComment(response.data)))
     // .catch(error => dispatch(addToast(error.message))
     .finally(() => dispatch(isDone()))
 }
